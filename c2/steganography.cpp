@@ -217,6 +217,8 @@ char** decode_jpeg(unsigned char *image, int max_pixels, int width, int height, 
         //TODO: error checking: return null if reach the end of picture without ever reading an ASCII null character
     }
 
+    //std::cout << "DEBUG: message1 binary: " << message_1 << std::endl;
+
     //convert binary messages into ASCII characters
     if(message_1 != NULL){
         message_1 = binary_to_ASCII(message_1, max_pixels);
@@ -293,12 +295,12 @@ int main(int argc, char *argv[]){
         std::cout << "There is no message 1" << std::endl;
     }
     if(messages[1]){
-        std::cout << "Message 2: " << messages[0] << std::endl;
+        std::cout << "Message 2: " << messages[1] << std::endl;
     }else{
         std::cout << "There is no message 2" << std::endl;
     }
     if(messages[2]){
-        std::cout << "Message 3: " << messages[0] << std::endl;
+        std::cout << "Message 3: " << messages[2] << std::endl;
     }else{
         std::cout << "There is no message 3" << std::endl;
     }
