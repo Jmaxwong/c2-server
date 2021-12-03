@@ -37,15 +37,21 @@ def encode(commands, img):#img is string of file ("diniFall.png")
         else:
             return 0
 
-        #TODO: pixels 1 and 2 are offsets for the pointer
         offset = random.randint(2, (width*height))#endpoints are included
-        offsetpos = ((int)(offset/width), (offset%width)) #pixel position for offset
+        (x,y) = ((int)(offset/width), (offset%width)) #starting pixel position for offset
 
         offset_byte = offset.to_bytes(2,"little")
-
+        #TODO: converbytes to strings so we can adjust rgb values
         #newimg.putpixel((0,1), value)
         #newimg.putpixel((0,2), value)
 
+
+        j = y #this weird code is to make sure it starts at right column and loops correctly
+        for i in range():
+            while(j < width):
+                newimg.putpixel((i,j),value)
+                j = j + 1
+            j = 0
 
         # newimg.save("newimg.png", format="png")
     except:
