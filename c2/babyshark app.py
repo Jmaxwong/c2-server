@@ -2,6 +2,7 @@ from sqlalchemy import desc, func
 from flask_sqlalchemy import SQLAlchemy
 from flaskext.mysql import MySQL
 from flask import Flask, render_template, request, url_for, redirect
+import flask
 import base64
 import os
 import logging
