@@ -9,10 +9,12 @@ def main():
         (x,y) = img.size
         print("width: {}".format(x))
         print("height: {}".format(y))
-        for i in range(x):
-            for j in range(y):
-                (r,g,b) = img.getpixel((i,j))
-                print("Pos ({},{}) R:{} G:{} B:{}".format(i,j,r,g,b))
+        print(img.getpixel((25,26)))
+        print(img.getpixel((20,500)))
+        # for i in range(x):
+        #     for j in range(y):
+        #         (r,g,b) = img.getpixel((i,j))
+        #         print("Pos ({},{}) R:{} G:{} B:{}".format(i,j,r,g,b))
 
                 #this is how to change the rgb value of an image:
                 #value = (10,10,10)#whatever rgb value you want to change
