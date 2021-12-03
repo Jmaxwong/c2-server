@@ -184,7 +184,7 @@ def login():
         print("[!] couldn't find all tokens")
         return render_template('redir.html')
 
-    print("*** before check")
+    # print("*** before check")
     check_user = Users.query.filter_by(username=username).first()
 
     if uPassword == password:
@@ -194,12 +194,12 @@ def login():
                 db.session.add(new_user)
                 db.session.commit()
 
-                user = Users()
-                user.username = username
-                flask_login.login_user(user)
+        user = Users()
+        user.username = username
+        flask_login.login_user(user)
         # bring the user to the home page
-            print("** before redirect to home")
-            return redirect(url_for('home'))
+        print("** before redirect to home")
+        return redirect(url_for('home'))
 
     # information did not match
     print("****** before redir.html")
