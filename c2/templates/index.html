@@ -8,7 +8,9 @@
 </head>
 
 <body>
-
+    {% if name %}
+        <h1>Hello {{ name }}!</h1>
+    {% endif %}
     <main class="container p-4">
     <div class="container">
   <div class="row justify-content-md-center">
@@ -73,6 +75,7 @@
         </div>
     </main>
 
+    <a href='/logout'>Logout</a>
 </body>
 <!-- 
 	N0vart1s Inc.

