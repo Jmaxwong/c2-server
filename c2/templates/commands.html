@@ -1,0 +1,19 @@
+<head>
+    <title>C2 BABY</title>
+</head>
+
+<body>
+
+    <main class="main"> 
+        <ul class="task list">
+            {% for task in task_queue %}
+			    {% if task.done == False %}
+                    <li class="list-group-item">
+				        <span>{{task.cmd}} # {{task.id}}</span> 
+                    </li>
+			    {% endif %}
+            {% endfor %}
+        </ul>
+    </main>
+
+</body>
