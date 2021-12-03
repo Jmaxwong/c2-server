@@ -1,0 +1,1107 @@
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Table 'c2.results' doesn't exist
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'c2.results' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    if len(Results.query.all()) == 0:
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3373, in all
+    return list(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3560, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.ProgrammingError: (mysql.connector.errors.ProgrammingError) 1146 (42S02): Table 'c2.results' doesn't exist
+[SQL: SELECT results.id AS results_id, results.results AS results_results 
+FROM results]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:29:46] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:29:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+ERROR:app:Exception on /commands [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 109, in getcommand
+    return render_template('redir.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\loaders.py", line 115, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 60, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 89, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: redir.html
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:30:12] "[35m[1mGET /commands HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Table 'c2.results' doesn't exist
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'c2.results' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    if len(Results.query.all()) == 0:
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3373, in all
+    return list(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3560, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.ProgrammingError: (mysql.connector.errors.ProgrammingError) 1146 (42S02): Table 'c2.results' doesn't exist
+[SQL: SELECT results.id AS results_id, results.results AS results_results 
+FROM results]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:30:26] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Table 'c2.results' doesn't exist
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'c2.results' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    if len(Results.query.all()) == 0:
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3373, in all
+    return list(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3560, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.ProgrammingError: (mysql.connector.errors.ProgrammingError) 1146 (42S02): Table 'c2.results' doesn't exist
+[SQL: SELECT results.id AS results_id, results.results AS results_results 
+FROM results]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:30:40] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Table 'c2.results' doesn't exist
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'c2.results' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    if len(Results.query.all()) == 0:
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3373, in all
+    return list(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3560, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.ProgrammingError: (mysql.connector.errors.ProgrammingError) 1146 (42S02): Table 'c2.results' doesn't exist
+[SQL: SELECT results.id AS results_id, results.results AS results_results 
+FROM results]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:32:00] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Table 'c2.results' doesn't exist
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.ProgrammingError: 1146 (42S02): Table 'c2.results' doesn't exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    if len(Results.query.all()) == 0:
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3373, in all
+    return list(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3535, in __iter__
+    return self._execute_and_instances(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\query.py", line 3560, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.ProgrammingError: (mysql.connector.errors.ProgrammingError) 1146 (42S02): Table 'c2.results' doesn't exist
+[SQL: SELECT results.id AS results_id, results.results AS results_results 
+FROM results]
+(Background on this error at: http://sqlalche.me/e/13/f405)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:32:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 100, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:32:45] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:34:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:34:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:36:32] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:37:04] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:39:10] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:39:17] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:43:07] "[35m[1mGET /?password=b4bysh4rk HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:43:12] "[35m[1mGET /?password=%27b4bysh4rk%27 HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:43:14] "[35m[1mGET /?password=%27b4bysh4rk%27 HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:43:17] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 84, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:48:20] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 84, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:48:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:48:34] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:48:49] "[37mGET /commands HTTP/1.1[0m" 200 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    return render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:17] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    return render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    return render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:24] "[35m[1mGET / HTTP/1.1[0m" 500 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 65, in home
+    return render_template('index.html')
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 137, in render_template
+    return _render(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\templates\index.html", line 83, in top-level template code
+    {% for n_line in returns.split('\n') %}
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\jinja2\environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'returns' is undefined
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:41] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ERROR:app:Exception on /register [GET]
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 516, in cmd_query
+    self._cmysql.query(query,
+_mysql_connector.MySQLInterfaceError: Field 'guid' doesn't have a default value
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+mysql.connector.errors.DatabaseError: 1364 (HY000): Field 'guid' doesn't have a default value
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\bober\Desktop\CS-501-2021-main\c2\app.py", line 87, in register
+    db.session.commit()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 1046, in commit
+    self.transaction.commit()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 504, in commit
+    self._prepare_impl()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 2540, in flush
+    self._flush(objects)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 2682, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\session.py", line 2642, in _flush
+    flush_context.execute()
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 586, in execute
+    persistence.save_obj(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 239, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\orm\persistence.py", line 1135, in _emit_insert_statements
+    result = cached_connections[connection].execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1124, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1316, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1510, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 1276, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 608, in do_execute
+    cursor.execute(statement, parameters)
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\cursor_cext.py", line 269, in execute
+    result = self._cnx.cmd_query(stmt, raw=self._raw,
+  File "C:\Users\bober\AppData\Local\Programs\Python\Python39\lib\site-packages\mysql\connector\connection_cext.py", line 521, in cmd_query
+    raise errors.get_mysql_exception(exc.errno, msg=exc.msg,
+sqlalchemy.exc.DatabaseError: (mysql.connector.errors.DatabaseError) 1364 (HY000): Field 'guid' doesn't have a default value
+[SQL: INSERT INTO agents (user, computer) VALUES (%(user)s, %(computer)s)]
+[parameters: {'user': None, 'computer': None}]
+(Background on this error at: http://sqlalche.me/e/13/4xp6)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:44] "[35m[1mGET /register HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:49:52] "[37mGET /commands HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:01] "[31m[1mGET /create-task HTTP/1.1[0m" 405 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:25] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:39] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:40] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:49] "[32mPOST /create-task HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:50] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:50] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:50:55] "[37mGET /commands HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:51:22] "[37mGET /commands?key= HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:51:37] "[37mGET /commands?key=%27b4bysh4rk%27 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:51:46] "[37mGET /commands?key=b4bysh4rk HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:53:19] "[37mGET /register?guid=aslkdfjsadkjfasdflkj&user=User&computer=WinDev2018 HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:46] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:47] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:57] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:57] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:58] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:57:59] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:09] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:09] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:19] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:19] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:29] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:30] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:40] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:40] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:50] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:58:50] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:00] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:01] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:11] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:11] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:21] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:22] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:32] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:32] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:39] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:40] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:50] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 01:59:50] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:00] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:01] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:11] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:11] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:21] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:21] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:31] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:32] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:42] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:42] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:52] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:00:52] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:02] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:03] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:03] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:03] "[33mGET /static/main.css HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:13] "[37mGET / HTTP/1.1[0m" 200 -
+INFO:werkzeug:127.0.0.1 - - [03/Dec/2021 02:01:14] "[33mGET /static/main.css HTTP/1.1[0m" 404 -

