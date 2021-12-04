@@ -2,12 +2,8 @@ from PIL import Image
 import random
 
 
-def evenRGB():
-    return random.randrange(0, 256, 2)
-def oddRGB():
-    return random.randrange(1, 257, 2)
 
-
+#NOTE**** IT IS (col,row) NOT (row,col)
 def encode(commands, img, iid):  # img is string of file ("diniFall.png") and commands is expected to be arr size 3
     try:
         img = Image.open(img)
@@ -20,31 +16,85 @@ def encode(commands, img, iid):  # img is string of file ("diniFall.png") and co
 
         new_img = img.copy()
 
+        def evenRGB(num, col, row): #num is an integer referring to r, g, or b
+            (r,g,b) = img_rgb.getpixel((col,row)) 
+            if num == 1:
+                if(r%2 == 0):# THIS IS NOT NECESSARY BC ITS EVEN ONLY USEFUL IN ODD
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r+1,g,b) )
+                    else:
+                        new_img.putpixel((col,row), (r-1,g,b) )
+            if num == 2:
+                if(g%2 == 0):
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r,g+1,b) )
+                    else:
+                        new_img.putpixel((col,row), (r,g-1,b) )
+            if num == 3:
+                if(b%2 == 0):
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r,g,b+1) )
+                    else:
+                        new_img.putpixel((col,row), (r,g,b-1) )
+
+        def oddRGB(num, col, row):
+            if num == 1:
+                if(r%2 == 1):
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r+1,g,b) )
+                    else:
+                        new_img.putpixel((col,row), (r-1,g,b) )
+            if num == 2:
+                if(g%2 == 1):
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r,g+1,b) )
+                    else:
+                        new_img.putpixel((col,row), (r,g-1,b) )
+            if num == 3:
+                if(b%2 == 1):
+                    return 0
+                else:
+                    if(r == 0):
+                        new_img.putpixel((col,row), (r,g,b+1) )
+                    else:
+                        new_img.putpixel((col,row), (r,g,b-1) )
+
         num_commands = 0
         if(commands[0] == ""):
             return 0
         elif(commands[1] == ""):
-            value = (oddRGB(), evenRGB(), evenRGB())
-            new_img.putpixel((0, 0), value)
+            oddRGB(1,0,0)
+            evenRGB(2,0,0)
+            evenRGB(3,0,0)
             num_commands = 1
         elif(commands[2] == ""):
-            value = (oddRGB(), oddRGB(), evenRGB())
-            new_img.putpixel((0, 0), value) 
+            oddRGB(1,0,0)
+            oddRGB(2,0,0)
+            evenRGB(3,0,0)
             num_commands = 2        
         else:
-            value = (oddRGB(), oddRGB(), oddRGB())
-            new_img.putpixel((0, 0), value)
-            num_commands = 3
+            oddRGB(1,0,0)
+            oddRGB(2,0,0)
+            oddRGB(3,0,0)
+            num_commands = 3              
 
 
         offset = random.randint(3, 31)  # endpoints are included
         # starting pixel position for offset
-        (x, y) = ((int)(offset/width), (offset % width))
+        (x, y) = ((offset % width), (int)(offset/width))
+        #col,row
 
-        #offset_byte = offset.to_bytes(2, "little")
         # TODO: 2nd and third pixel rgb conversion
-
-
 
         i = x
         j = y  # this weird code is to make sure it starts at right column and loops correctly
@@ -52,8 +102,8 @@ def encode(commands, img, iid):  # img is string of file ("diniFall.png") and co
 
         #TODO: make sure offset does not exceed the image size
 
-        while(i < height):
-            while(j < width):
+        while(i < width):
+            while(j < height):
                 if(finishedWriting(commands)):
                     isWriting = False
                     #TODO: convert char to decimal to binary
