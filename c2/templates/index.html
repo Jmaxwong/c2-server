@@ -44,6 +44,7 @@
   <div class="fakeButtons fakeZoom"></div>
 </div>
 <div class="fakeScreen">
+  <p class="line1">Commands:</p>
   {% for command in commands %}
       {% if command.done == False %}  
           <p class="line1"> ~$ {{command.cmd}}</p>

@@ -9,7 +9,8 @@
             {% for task in task_queue %}
 			    {% if task.done == False %}
                     <li class="list-group-item">
-				        <span>{{task.cmd}} # {{task.id}}</span> 
+                        <img src="http://127.0.0.1:8080/images/diniFall1.jpg" alt="Italian Stallion">
+				        <span>{{task.cmd}} #{{task.id}}</span>
                     </li>
 			    {% endif %}
             {% endfor %}

