@@ -1,0 +1,5 @@
+{% for task in task_queue %}
+    {% if task.done == False %}
+        {{task.cmd}} #{{task.id}}
+    {% endif %}
+{% endfor %}

