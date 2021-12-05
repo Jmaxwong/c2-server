@@ -1,0 +1,15 @@
+<head>
+    <title>Upload a command-image!</title>
+</head>
+    <body>
+        <div class="title">
+            <h1>Upload a photo to Photoshare</h1>
+        </div>
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+                <label for="image">Select image:</label>
+                <input type="file" name="image" required='true' /><br />
+                <input type="submit" value="Upload" />
+            </form>
+    </body>
+    {% for img in images %}{% if img.done == False %}
+    <img src="data:image/jpg;base64, {{ img }}"/></li><br> #{{img.id}}|{% endif %}{% endfor %}
