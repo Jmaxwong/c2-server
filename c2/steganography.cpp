@@ -236,7 +236,7 @@ char** decode_jpeg(unsigned char *image, int max_pixels, int width, int height, 
     messages[2] = message_3;
 
     //cleanup
-    delete(offset);
+    delete[](offset);
     free(message_1);
     free(message_2);
     free(message_3);
@@ -277,10 +277,12 @@ int main(int argc, char *argv[]){
 
     // Print out RGB values for original img
     int pixel_num = 0;
-    for(unsigned char *p = img; p != img + img_size; p += channels, pixel_num ++){
-        printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
-    }
-
+    // for(unsigned char *p = img; p != img + img_size; p += channels, pixel_num ++){
+    //     //printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
+    // }
+    unsigned char *p = img;
+    printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
+    printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p+3), *(p +3+ 1), *(p +3+ 2));
     printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     int max_pixels = width * height;
@@ -333,7 +335,7 @@ int main(int argc, char *argv[]){
     // stbi_write_jpg("Doge2.jpg", width, height, gray_channels, gray_img, 100);
 
     //cleanup
-    delete(messages);
+    delete[](messages);
     stbi_image_free(altered_img);
     stbi_image_free(img);
 }

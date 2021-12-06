@@ -76,21 +76,28 @@ def main():
     # img = Image.open("joe.jpg")
     # img_rgb = img.convert("RGB")
     # (width, height) = img.size
-    # print("width: {}".format(width))
-    # print("height: {}".format(height))
 
-    # img2 = Image.open("joe2.jpg")
-    # img_rgb = img.convert("RGB")
-    name = '/Users/justinwong/Documents/GitHub/c2-server/c2/tester.jpg' 
-    img = Image.open(name)
+    img = Image.open("joe.jpg")
     img_rgb = img.convert("RGB")
     (width, height) = img.size
-    print("width: {}".format(width))
-    print("height: {}".format(height))
-    new_img = img.copy()
+    pix = img.load()
+    print("0 0 before")
+    print(pix[0,0])
 
-    x = img_rgb.getpixel((0,0))
-    print(x)
+    new_img = img.copy()
+    new_img = new_img.convert("RGB")
+    pix = new_img.load() 
+
+    for i in range(height):
+        for j in range(width):
+            (r,g,b) = pix[j,i]
+            pix[j,i] = (r,g,1)
+
+    print("0 0 after")
+    print(pix[0,0])
+
+    img_name = "btest.jpg"
+    new_img.save(('/Users/justinwong/Documents/GitHub/c2-server/c2/' + img_name), format="JPEG")
 
 if __name__ == "__main__":
     main()
