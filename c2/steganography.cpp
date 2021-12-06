@@ -254,7 +254,7 @@ int main(int argc, char *argv[]){
 
     // Initialize width, height, and channels for original image
     int width, height, channels;
-    unsigned char *img = stbi_load("Doge.jpg", &width, &height, &channels, 0);
+    unsigned char *img = stbi_load("12_diniFall.jpg", &width, &height, &channels, 0);
     if(img == NULL){
         printf("RIP for image loading");
         return 0;

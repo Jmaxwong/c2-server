@@ -1,6 +1,7 @@
 from PIL import Image
 import random
 
+
 def stringToBinary(string):
 
     stringLength = len(string)
@@ -14,19 +15,20 @@ def stringToBinary(string):
     binString = []
     for i in range(stringLength):#into an array of string formed bits
         binString.append(bin(intString[i]))
-        binString[i] = binString[i][2:] #string
+        binString[i] = binString[i][2:]#string
 
         if (len(binString[i]) < 7):#pad the zeros into ASCII binary form 
-            for i in range(len(binString[i]),7):                    
+            for k in range(len(binString[i]),7):                    
                 binString[i] = "0" + binString[i]
-                print("test")
-
+            
+    print("join")
     returnString = "".join(binString)
     returnString = returnString + "0000000" #add the null byte
     return returnString
 
 #NOTE**** IT IS (col,row) NOT (row,col)
 def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") and commands is expected to be arr size 3
+
     try:
         img = Image.open(img)
         img_rgb = img.convert("RGB")
@@ -35,38 +37,24 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
         print("height: {}".format(height))
         new_img = img.copy()
         #(r, g, b) = img_rgb.getpixel((0, 0))
-    
+
     except:
         print("ERROR: No file found!")
+        return 0
 
 
     print("Checkpoint 1")
     def evenRGB(num, col, row): #num is an integer referring to r, g, or b
-        (r,g,b) = img_rgb.getpixel((col,row)) 
+        (r,g,b) = img_rgb.getpixel((col,row))
         if num == 1:
-            if(r%2 == 0):# THIS IS NOT NECESSARY BC ITS EVEN ONLY USEFUL IN ODD
-                return 0
-            else:
-                if(r == 0):
-                    new_img.putpixel((col,row), (r+1,g,b) )
-                else:
-                    new_img.putpixel((col,row), (r-1,g,b) )
+            if r%2 != 0:
+                new_img.putpixel((col,row), (r-1,g,b) )
         if num == 2:
-            if(g%2 == 0):
-                return 0
-            else:
-                if(r == 0):
-                    new_img.putpixel((col,row), (r,g+1,b) )
-                else:
-                    new_img.putpixel((col,row), (r,g-1,b) )
+            if g%2 != 0:
+                new_img.putpixel((col,row), (r,g-1,b) )
         if num == 3:
-            if(b%2 == 0):
-                return 0
-            else:
-                if(r == 0):
-                    new_img.putpixel((col,row), (r,g,b+1) )
-                else:
-                    new_img.putpixel((col,row), (r,g,b-1) )
+            if b%2 != 0:
+                new_img.putpixel((col,row), (r,g,b-1) )
 
     def oddRGB(num, col, row):
         (r,g,b) = img_rgb.getpixel((col,row))
@@ -75,50 +63,34 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
                 return 0
             else:
                 if(r == 0):
-                    new_img.putpixel((col,row), (r+1,g,b) )
+                    new_img.putpixel((col,row), (1,g,b) )
                 else:
                     new_img.putpixel((col,row), (r-1,g,b) )
         if num == 2:
             if(g%2 == 1):
                 return 0
             else:
-                if(r == 0):
-                    new_img.putpixel((col,row), (r,g+1,b) )
+                if(g == 0):
+                    img.putpixel((col,row), (r,1,b) )
                 else:
-                    new_img.putpixel((col,row), (r,g-1,b) )
+                    img.putpixel((col,row), (r,g-1,b) )
         if num == 3:
             if(b%2 == 1):
                 return 0
             else:
-                if(r == 0):
-                    new_img.putpixel((col,row), (r,g,b+1) )
+                if(b == 0):
+                    img.putpixel((col,row), (r,g,1) )
                 else:
-                    new_img.putpixel((col,row), (r,g,b-1) )
-
-
-    num_commands = 0
-    if(commands[0] == ""):
-        return 0
-    elif(commands[1] == ""):
-        oddRGB(1,0,0)
-        evenRGB(2,0,0)
-        evenRGB(3,0,0)
-        num_commands = 1
-    elif(commands[2] == ""):
-        oddRGB(1,0,0)
-        oddRGB(2,0,0)
-        evenRGB(3,0,0)
-        num_commands = 2        
-    else:
-        oddRGB(1,0,0)
-        oddRGB(2,0,0)
-        oddRGB(3,0,0)
-        num_commands = 3 
-            
+                    img.putpixel((col,row), (r,g,b-1) )
+    
+    for i in range(len(commands)):
+        if commands[i] == "":
+            evenRGB((i+1),0,0)
+        else:
+            oddRGB((i+1),0,0)
 
     
     #TODO: make sure offset does not exceed the image size
-
     offset = random.randint(3, 63)
 
     #checks if offset is invalid
@@ -151,7 +123,6 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
                 oddRGB(rgb,2,0)
             else:
                 evenRGB(rgb,2,0)
-    
 
     print("offset: " + str(offset))        
     print("binary_offset: " + binary_offset)
@@ -163,6 +134,7 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
     channel1 = stringToBinary(commands[0])
     channel2 = stringToBinary(commands[1])
     channel3 = stringToBinary(commands[2])
+    
 
     #check to see if commands are too big for the image
     print("Checkpoint 4")
@@ -203,7 +175,7 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
 
     print("Checkpoint 6")
     img_name = "{}_diniFall.jpg".format(iid)
-    new_img.save(('/Users/justinwong/Documents/GitHub/c2-server/c2/images/' + img_name), format="JPEG") #change to make it whoevers computer
+    new_img.save(('/Users/justinwong/Documents/GitHub/c2-server/c2/' + img_name), format="JPEG") #change to make it whoevers computer
     return 0
 
 
@@ -213,7 +185,7 @@ def main():
         #print("width: {}".format(x))
         #print("height: {}".format(y))
 
-    commands = ["Hello","World","Pizza"]
+    commands = ["Hello World","","Pizza"]
     empty = ["","",""]
     print(commands)
     img = "joe.jpg"
