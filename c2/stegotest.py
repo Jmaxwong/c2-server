@@ -211,7 +211,7 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
     channel2 = stringToBinary(commands[1])
     channel3 = stringToBinary(commands[2])
     
-
+    #print(channel1)
     #check to see if commands are too big for the image
     #print("Checkpoint 4")
     lenchannel1 = len(channel1)
@@ -226,8 +226,8 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
     #print("Checkpoint 5")
 
     doublecheck = ""
-    i = x
-    j = y  
+    i = y
+    j = x  
     iterator = 0
     while(i < height):
         while(j < width):
@@ -235,7 +235,7 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
                 if(channel1[iterator] == '0'):
                     evenRGB(1,j,i)
                 else:
-                    oddRGB(1,i,j)
+                    oddRGB(1,j,i)
             if len(channel2) != 0 and iterator < len(channel2):
                 if(channel2[iterator] == '0'):
                     evenRGB(2,j,i)
@@ -260,10 +260,10 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
 
 def main():
 
-    commands = ["arp -a","chinese","!@#$!"]
+    commands = ["arp -a","tester 3","123!@#$!"]
     empty = ["wefq","",""]
     print(commands)
-    img = "joe.jpg"
+    img = "1_diniFall.png"
     encodeImage(commands, img, 1)
 
 if __name__ == "__main__":

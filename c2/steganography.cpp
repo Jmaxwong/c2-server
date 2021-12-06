@@ -154,10 +154,10 @@ char** decode_png(unsigned char *image, int max_pixels, int width, int height, i
         offset[5] = '1';
     }
 
-    //std::cout << "DEBUG: Offset value (binary) is: " << offset << std::endl;
+    std::cout << "DEBUG: Offset value (binary) is: " << offset << std::endl;
     //convert binary offset to decimal offset
     int int_offset = binary_to_decimal(offset, 6);
-    //std::cout << "DEBUG: Offset value (decimal) is: " << int_offset << std::endl;
+    std::cout << "DEBUG: Offset value (decimal) is: " << int_offset << std::endl;
 
     //error checking: return null if offset value exceeds number of pixels in picture
     if(int_offset > (max_pixels - 3)){
@@ -248,7 +248,7 @@ int main(int argc, char *argv[]){
 
     // Initialize width, height, and channels for original image
     int width, height, channels;
-    unsigned char *img = stbi_load("images/diniFall2.png", &width, &height, &channels, 0);
+    unsigned char *img = stbi_load("1_diniFall.png", &width, &height, &channels, 0);
     if(img == NULL){
         printf("RIP for image loading");
         return 0;
@@ -274,6 +274,7 @@ int main(int argc, char *argv[]){
     // for(unsigned char *p = img; p != img + img_size; p += channels, pixel_num ++){
     //     printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
     // }
+
 
     int max_pixels = width * height;
     std::cout << "Max Pixels: " << max_pixels << std::endl;
