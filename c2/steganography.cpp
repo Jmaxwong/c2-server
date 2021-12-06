@@ -82,7 +82,7 @@ char* binary_to_ASCII(char* message, int max_size){
     return returnASCII;
 }
 
-char** decode_jpeg(unsigned char *image, int max_pixels, int width, int height, int channels, size_t image_size){
+char** decode_png(unsigned char *image, int max_pixels, int width, int height, int channels, size_t image_size){
     //allocate space for char** that will be returned
     char **messages = new char*[3];
     char *message_1; 
@@ -246,15 +246,9 @@ char** decode_jpeg(unsigned char *image, int max_pixels, int width, int height, 
 
 int main(int argc, char *argv[]){
 
-    // Make sure correct number of arguments
-    if(argc != 2){
-        printf("Incorrect number of arguments: you need 2 positonal arguemts");
-        return 0;
-    }
-
     // Initialize width, height, and channels for original image
     int width, height, channels;
-    unsigned char *img = stbi_load("12_diniFall.jpg", &width, &height, &channels, 0);
+    unsigned char *img = stbi_load("images/diniFall2.png", &width, &height, &channels, 0);
     if(img == NULL){
         printf("RIP for image loading");
         return 0;
@@ -263,7 +257,7 @@ int main(int argc, char *argv[]){
 
     size_t img_size = width * height * channels;
 
-    // Allocate memory for altered jpeg
+    // Allocate memory for altered png
     int altered_img_channels = 3;
     size_t altered_img_size = width * height * altered_img_channels;
     unsigned char *altered_img = (unsigned char*) malloc(altered_img_size);
@@ -276,20 +270,16 @@ int main(int argc, char *argv[]){
     // change_even_odd(img_size/3, img, true, img_size, channels, altered_img);
 
     // Print out RGB values for original img
-    int pixel_num = 0;
+    // int pixel_num = 0;
     // for(unsigned char *p = img; p != img + img_size; p += channels, pixel_num ++){
-    //     //printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
+    //     printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
     // }
-    unsigned char *p = img;
-    printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p), *(p + 1), *(p + 2));
-    printf("Pixel at %d height, %d width, R: %d, G: %d, B: %d\n", pixel_num / height, pixel_num % height, *(p+3), *(p +3+ 1), *(p +3+ 2));
-    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
     int max_pixels = width * height;
     std::cout << "Max Pixels: " << max_pixels << std::endl;
 
     char **messages = new char*[3];
-    messages = decode_jpeg(img, max_pixels, width, height, channels, img_size);
+    messages = decode_png(img, max_pixels, width, height, channels, img_size);
 
     if(messages[0]){
         std::cout << "Message 1: " << messages[0] << std::endl;
@@ -327,7 +317,7 @@ int main(int argc, char *argv[]){
     // }
 
 
-    // Loop over all pixels of jpeg
+    // Loop over all pixels of png
     // for(unsigned char *p = img, *pg = gray_img; p != img + img_size; p += channels, pg += gray_channels){
     //     *pg = (uint8_t)((*p + *(p + 1) + *(p + 2))/3.0);
     // }
