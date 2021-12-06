@@ -45,11 +45,13 @@
 </div>
 <div class="fakeScreen">
   <p class="line1">Commands:</p>
-  {% for command in commands %}
-      {% if command.done == False %}  
-          <p class="line1"> ~$ {{command.cmd}}</p>
-      {% endif %}
-  {% endfor %}
+  {% if commands %}
+    {% for command in commands %}
+        {% if command.done == False %}  
+            <p class="line1"> ~$ {{command.cmd}}</p>
+        {% endif %}
+    {% endfor %}
+  {% endif %}
 
           <p class="line1">Last output:</p>
   {% for n_line in returns.split('\n') %}
