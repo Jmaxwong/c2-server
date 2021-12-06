@@ -1,7 +1,6 @@
 from PIL import Image
 import random
 
-
 def stringToBinary(string):
 
     stringLength = len(string)
@@ -153,7 +152,7 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
             oddRGB((i+1),0,0)
     
     print("After change at 0,0")
-    print(new_img.load()[0,0])
+    print(pix[0,0])
 
     offset = random.randint(3, 63)
     
@@ -253,23 +252,19 @@ def encodeImage(commands, img, iid):  # img is string of file ("diniFall.png") a
         i = i + 1
 
     #print("Checkpoint 6")
-    img_name = "{}_diniFall.jpg".format(iid)
-    new_img.save(('/Users/justinwong/Documents/GitHub/c2-server/c2/' + img_name), format="JPEG") #change to make it whoevers computer
+    img_name = "{}_diniFall.png".format(iid)
+    new_img.save(('/Users/justinwong/Documents/GitHub/c2-server/c2/' + img_name)) #change to make it whoevers computer
     return 0
 
 
 
 def main():
 
-        #print("width: {}".format(x))
-        #print("height: {}".format(y))
-
     commands = ["arp -a","chinese","!@#$!"]
     empty = ["wefq","",""]
     print(commands)
     img = "joe.jpg"
-    encodeImage(commands, img, 12)
-
+    encodeImage(commands, img, 1)
 
 if __name__ == "__main__":
     main()
