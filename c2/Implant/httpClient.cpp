@@ -2,10 +2,11 @@
 #include <string>
 #include <iostream>
 #include <winhttp.h>
+#include <vector>
 
 
 std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool useTLS,
-    std::wstring optional_headers, std::wstring wszVerb, std::string http_data){
+    std::vector<std::wstring> optional_headers, std::wstring wszVerb, std::string http_data){
 
     std::string result = "";
     // std::wcout << "fqdn: " << fqdn << "      port: " << port << std::endl;
@@ -54,13 +55,31 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
 
     WinHttpSetOption(openRequestHandle, WINHTTP_OPTION_SECURITY_FLAGS, optionBuffer, optionBufferLength);
 
+    // setting the http optional headers
+    for (size_t i = 0; i < optional_headers.size(); i++) {
+        LPCWSTR header = (LPCWSTR) optional_headers[i].c_str();
+        std::wcout << L"Header: " << header << std::endl;
+        std::wcout << L"*******************Optional header added *******************" << std::endl;
+        if (!WinHttpAddRequestHeaders(
+            openRequestHandle,    // [in] HINTERNET hRequest,
+            (LPCWSTR) optional_headers[i].c_str(),    // [in] LPCWSTR   lpszHeaders,
+            (ULONG) -1L,    // [in] DWORD     dwHeadersLength,
+            WINHTTP_ADDREQ_FLAG_ADD    // [in] DWORD     dwModifiers
+        )){
+            std::wcout << L"Failed at adding headers" << std::endl;
+            std::wcout << L"Error: " << GetLastError() << std::endl;
+        }
+    }
+
+
+
     // sending request
     // std::wcout << L"http_data len = " << wcslen(http_data.c_str()) << std::endl;
     // std::wcout << L"http_data = " << (LPCWSTR) http_data.c_str() << std::endl;
     // std::wcout << L"optional_headers len = " << wcslen(optional_headers.c_str()) << std::endl;
     if ( WinHttpSendRequest(
             openRequestHandle, 
-            optional_headers.c_str(), 
+            WINHTTP_NO_ADDITIONAL_HEADERS, 
             -1, 
             (LPVOID) http_data.c_str(),
             (DWORD) http_data.length(),
