@@ -39,33 +39,33 @@ class WinHash{
 };
 
 void WinHash::Cleanup(){
-                 wprintf(L"Cleanup Called\n");
+                //  wprintf(L"Cleanup Called\n");
 
       if(hAlg)
         {
             ::BCryptCloseAlgorithmProvider(hAlg,0);
-             wprintf(L"Cleaned up AlgorithmProvider\n");
+            //  wprintf(L"Cleaned up AlgorithmProvider\n");
              hAlg = NULL;
         }
 
         if (hHash)    
         {
             ::BCryptDestroyHash(hHash);
-             wprintf(L"Cleaned up Hash Object\n");
+            //  wprintf(L"Cleaned up Hash Object\n");
              hHash = NULL;
         }
 
         if(pbHashObject)
         {
             ::HeapFree(GetProcessHeap(), 0, pbHashObject);
-             wprintf(L"Cleaned up Heap SPace for Hash Object\n");
+            //  wprintf(L"Cleaned up Heap SPace for Hash Object\n");
              pbHashObject = NULL;
         }
 
         if( (pbHash) && err )
         {
             ::HeapFree(GetProcessHeap(), 0, pbHash);
-             wprintf(L"Cleaned up Hash space\n");
+            //  wprintf(L"Cleaned up Hash space\n");
                 pbHash = NULL;
         }
 
@@ -312,14 +312,14 @@ BYTE* HashData(BYTE* data, size_t dataLen){
     for(size_t i = 0; i < cbHash; i++){
         wprintf(L"%02x",pbHash[i] );
     }
-    wprintf(L"\n");
-    wprintf(L"Success!\n" );
+    // wprintf(L"\n");
+    // wprintf(L"Success!\n" );
 
 Cleanup:
 
     if(hAlg)
     {   
-        wprintf(L"Cleaned up AlgorithmProvider\n");
+        // wprintf(L"Cleaned up AlgorithmProvider\n");
         BCryptCloseAlgorithmProvider(hAlg,0);
     }
 
@@ -327,19 +327,19 @@ Cleanup:
     {   
         
         BCryptDestroyHash(hHash);
-         wprintf(L"Destroyed Hash Object\n");
+        //  wprintf(L"Destroyed Hash Object\n");
     }
 
     if(pbHashObject)
     {
         HeapFree(GetProcessHeap(), 0, pbHashObject);
-         wprintf(L"Freed Heap Space used for Hash Object\n");
+        //  wprintf(L"Freed Heap Space used for Hash Object\n");
     }
 
     if(pbHash && err)
     {
         HeapFree(GetProcessHeap(), 0, pbHash);
-         wprintf(L"Cleaned up space used for digest\n");
+        //  wprintf(L"Cleaned up space used for digest\n");
         pbHash = NULL;
     }
     return pbHash;

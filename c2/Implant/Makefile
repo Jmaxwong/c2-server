@@ -12,7 +12,7 @@ endif
 all: adversary
 
 adversary:
-	$(CXX) final_proj.cpp $(CFLAGS) $(LDFLAGS) -o a.exe 
+	$(CXX) final_proj.cpp $(CFLAGS) $(LDFLAGS) -o LMAOware.exe 
 	
 safe:
 	$(CXX) final_proj_safe.cpp $(CFLAGS) $(LDFLAGS) -o safe_implant.exe 

