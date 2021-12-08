@@ -1,6 +1,6 @@
 from sqlalchemy import desc, func
 from sqlalchemy.sql.functions import user
-from flask_sqlalchemy import SQLAlchemy
+import flask_sqlalchemy
 from flaskext.mysql import MySQL
 from flask import Flask, render_template, request, url_for, redirect
 import flask_login
