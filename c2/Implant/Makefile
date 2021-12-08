@@ -13,6 +13,9 @@ all: adversary
 
 adversary:
 	$(CXX) final_proj.cpp $(CFLAGS) $(LDFLAGS) -o LMAOware.exe 
+
+aes:
+	$(CXX) aes_test.cpp aes_gcm.cpp  $(LDFLAGS)   -o aes.exe 
 	
 safe:
 	$(CXX) final_proj_safe.cpp $(CFLAGS) $(LDFLAGS) -o safe_implant.exe 
