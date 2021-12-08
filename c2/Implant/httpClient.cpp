@@ -15,11 +15,12 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
     LPCWSTR userAgent = reinterpret_cast<LPCWSTR>(L"Myles920");
 
     // Initialization of the WinHttp Session.
-    HINTERNET sessionHandle = WinHttpOpen(userAgent, WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, NULL, NULL, 0);
+    HINTERNET sessionHandle = WinHttpOpen(userAgent, WINHTTP_ACCESS_TYPE_NO_PROXY, NULL, NULL, 0);
     // std::wcout << "session handle made!" << std::endl;
 
     // Configuring the HTTP client
     HINTERNET connectHandle = WinHttpConnect(sessionHandle, fqdn.c_str(), port, 0);
+    // HINTERNET connectHandle = WinHttpConnect(sessionHandle, L"192.168.56.102", 5000, 0);
     // std::wcout << "connect handle made!" << std::endl;
 
     // Opening the http request

