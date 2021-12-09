@@ -30,6 +30,7 @@ def stringToBinary(string):
 
 
 def main():
+    return 0
     
 
 

