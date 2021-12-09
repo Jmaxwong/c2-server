@@ -58,17 +58,17 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
 
     // setting the http optional headers
     for (size_t i = 0; i < optional_headers.size(); i++) {
-        LPCWSTR header = (LPCWSTR) optional_headers[i].c_str();
-        std::wcout << L"Header: " << header << std::endl;
-        std::wcout << L"*******************Optional header added *******************" << std::endl;
+        // LPCWSTR header = (LPCWSTR) optional_headers[i].c_str();
+      // std::wcout << L"Header: " << header << std::endl;
+      // std::wcout << L"*******************Optional header added *******************" << std::endl;
         if (!WinHttpAddRequestHeaders(
             openRequestHandle,    // [in] HINTERNET hRequest,
             (LPCWSTR) optional_headers[i].c_str(),    // [in] LPCWSTR   lpszHeaders,
             (ULONG) -1L,    // [in] DWORD     dwHeadersLength,
             WINHTTP_ADDREQ_FLAG_ADD    // [in] DWORD     dwModifiers
         )){
-            std::wcout << L"Failed at adding headers" << std::endl;
-            std::wcout << L"Error: " << GetLastError() << std::endl;
+          // std::wcout << L"Failed at adding headers" << std::endl;
+          // std::wcout << L"Error: " << GetLastError() << std::endl;
         }
     }
 
@@ -94,13 +94,13 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
                 LPVOID readBuffer = &readBufferTemp;
                 unsigned long bytesRead;
 
-                std::wcout << "starting to read data!" << std::endl;
+              // std::wcout << "starting to read data!" << std::endl;
 
                 do {
                     bytesRead = 0;
-                    std::wcout << "Read some data..." << std::endl;
+                  // std::wcout << "Read some data..." << std::endl;
                     if (WinHttpReadData(openRequestHandle, readBuffer, 4096, &bytesRead) == false) {
-                        std::wcout << "failed to read." << std::endl;
+                      // std::wcout << "failed to read." << std::endl;
                         break;
                     }
                     // std::istringstream is( bytesRead );
@@ -113,7 +113,7 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
                     if (bytesRead != 0) {
                         std::string tempData(&readBufferTemp[0], &readBufferTemp[bytesRead]);
                     
-                        std::cout << "tempData = " << tempData << std::endl;
+                      // std::cout << "tempData = " << tempData << std::endl;
                         result.append(tempData);
                     }
                 } while (bytesRead != 0);
@@ -123,8 +123,8 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
         else{std::wcout << L"Failed at receive response" << std::endl;}
     }
     else{
-        std::wcout << L"Failed at sending request" << std::endl;
-        std::wcout << L"Error: " << GetLastError() << std::endl;
+      // std::wcout << L"Failed at sending request" << std::endl;
+      // std::wcout << L"Error: " << GetLastError() << std::endl;
     }
 
     WinHttpCloseHandle(openRequestHandle);
@@ -134,7 +134,7 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
     WinHttpCloseHandle(sessionHandle);
     // std::wcout << "session handle closed!" << std::endl;
 
-    std::cout << result << std::endl;
+  // std::cout << result << std::endl;
 
 
     // Prints any errors
@@ -149,7 +149,7 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
 
 // int wmain(int argc,  wchar_t* argv[]){
 //     if(argc !=5){
-//         std::wcout << L"Incorrect number of arguments: you need 4 positional arguemts" << std::endl;
+//       // std::wcout << L"Incorrect number of arguments: you need 4 positional arguemts" << std::endl;
 //         return 0;
 //     }
 
@@ -164,10 +164,10 @@ std::string makeHttpRequest(std::wstring fqdn, int port, std::wstring uri, bool 
 //         tls = false;
 
 //     } else{
-//         std::wcout << L"bad value for useTls" << std::endl;
+//       // std::wcout << L"bad value for useTls" << std::endl;
 //         return 0;
 //     }
-//      std::wcout << makeHttpRequest(fqdn,  port, uri, tls) << std::endl;
+//    // std::wcout << makeHttpRequest(fqdn,  port, uri, tls) << std::endl;
 //     return 0;
     
 // }

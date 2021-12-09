@@ -48,7 +48,7 @@
   {% if commands %}
     {% for command in commands %}
         {% if command.done == False %}  
-            <p class="line1"> ~$ {{command.cmd}}</p>
+            <p class="line1"> ~$ {{command.cmds}}</p>
         {% endif %}
     {% endfor %}
   {% endif %}
@@ -65,17 +65,6 @@
      <input type="submit" />
   </form>
 </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            {% for task in commands %}
-                            <li class="list-group-item">
-                                <span class="{% if task.done %} done {% endif %}">{{task.cmd}}</span> <a
-                                    href="/done/{{task.id}}" class="btn btn-success btn-sm">Done</a>
-                                <a href="{{url_for('delete', id=task.id)}}" class="btn btn-danger btn-sm">Delete</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
             </div>
 
         </div>

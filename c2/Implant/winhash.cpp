@@ -197,7 +197,7 @@ BOOL WinHash::Digest(){
        return FALSE;
     }
 
-    wprintf(L"Success!\n");
+    // wprintf(L"Success!\n");
     Cleanup();
      // as per the docmunetation, once the FinalHash is created, the handles to the algorithm cannot be resued!
     return TRUE;

