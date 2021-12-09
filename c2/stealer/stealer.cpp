@@ -8,12 +8,6 @@
 #include "base64.cpp"
 #include "aes_gcm.cpp"
 
-// class DATA_BLOB{
-//     public:
-//         DWORD cbData
-//         POINTER(c_char) pbData
-// };
-
 
 // global variable declaration
 

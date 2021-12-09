@@ -157,8 +157,6 @@ def register():
         return render_template('redir.html')
 
 
-# TODO CHANGE COMMANDS FUNCTION TO WORK WITH STEGANOGRAPHY
-# NOTE WE WILL PROBABLY HAVE TO CHANGE THE SQL DATABASE WITH THIS, TOO
 
 
 @app.route("/get-image/<image_name>", methods=['GET', 'POST'])
@@ -200,7 +198,6 @@ def getCommand():
                 db.session.commit()
                 print("Result data committed to the db!")
 
-            # TODO CHANGE THE 'DONE' STATUS OF THE COMMAND TO TRUE, SINCE WE RECEIVED THE RESPONSE
             
             # Check if someone is trying to exploit our server
             try:
