@@ -314,7 +314,7 @@ def unauthorized_handler():
 if __name__ == '__main__':
     main()
     app.run(host="0.0.0.0", debug=False)
-    db.create_all()
+    
 
 
 # DEPRECATED CODE

